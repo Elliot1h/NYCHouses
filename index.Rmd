@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Tenants’ Guidebook to New York City"
+author: "Yunze Pan (yp2599), Xinyu Huang (xh2511)"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
