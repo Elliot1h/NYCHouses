@@ -1,2 +1,42 @@
 # Data sources
 
+We obtain three main datasets from NYC Open Data.
+
+## COVID-19 Dataset
+
+### Daily Counts of Cases, Hospitalizations, and Deaths.
+Such dataset can be found on: https://data.cityofnewyork.us/Health/COVID-19-Daily-Counts-of-Cases-Hospitaliz ations-an/rc75-m7u3
+https://github.com/nychealth/coronavirus-data
+
+Key variables: `CASE_COUNT`, `HOSPITALIZED_COUNT`, and `DEATH_COUNT` among various demographics aspects across various boroughs.
+
+### Vaccinated Population Data.
+Such dataset can be found on: https://github.com/nychealth/covid-vaccine-data/tree/main/people#coverage-summary-allagescsv
+
+Key variables: `RACE_ETHNICITY`, `AGE_GROUP`, `COUNT_PARTIALLY_CUMULATIVE`, `COUNT_FULLY_CUMULATIVE`, and `COUNT_1PLUS_CUMULATIVE` across `BOROUGH`.
+
+## Crime Dataset
+
+### Shooting Incident Data collected by NYPD.
+Such dataset can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8
+https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Year-To-Date-/5ucz-vwe8
+
+Key variables: `PERP_AGE_GROUP`, `PERP_SEX`, `VIC_AGE_GROUP`, `VIC_SEX`, and `STATISTICAL_MURDER_FLAG` across `BORO` at `OCCUR_TIME`.
+
+### Arrest Data collected by NYPD.
+Such dataset can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Arrests-Data-Historic-/8h9b-rp9u
+https://data.cityofnewyork.us/Public-Safety/NYPD-Arrest-Data-Year-to-Date-/uip8-fykc
+
+Key variables: `LAW_CODE`, `AGE_GROUP`, `PERP_SEX`, and `PERP_RACE` across `ARREST_BORO` at `Record Create Date`.
+
+### Hate Crimes Data collected by NYPD.
+Such dataset can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Hate-Crimes/bqiq-cu78
+
+Key variables: `Law Code Category Description`, `Bias Motive Description`, and `Offense Description` across `County` at `ARREST_DATE`.
+
+## Air Quality Dataset
+
+### New York City Air Quality Surveillance Data:
+Such dataset can be found on: https://data.cityofnewyork.us/Environment/Air-Quality/c3uy-2p5r 
+
+Key variables: `Indicator ID`, `Measure`, `Geo Place Name`, `Time Period` and `Data Value`.
