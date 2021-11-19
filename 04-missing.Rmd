@@ -7,13 +7,15 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ## Summary
 
-NO missing values in air quality dataset and Covid-19 dataset. Some missing values in crimes dataset. See below...
+Since there are no missing values in air quality dataset and Covid-19 dataset. We will investigate how missing values appears in three crime-related datasets in this part. 
 
 ## About Crimes Dataset
 
 ### Shooting
 
-xxxx
+The first dataset contains every shooting incident that occurred in NYC from 2020 to this date.
+
+This is a breakdown of every shooting incident that occurred in NYC during the Each record represents a shooting incident in NYC and includes information about the event, the location and time of occurrence. In addition, information related to suspect and victim demographics is also included. 
 
 ```{r, echo = FALSE}
 shooting_df <- read.csv("data/NYPD_Shooting_2019_2021.csv")
@@ -21,16 +23,24 @@ shooting_df[shooting_df == "" | shooting_df == "UNKNOWN"] <- NA
 colSums(is.na(shooting_df)) %>% sort(decreasing = TRUE)
 ```
 
-xxxx
+We first count the number of missing values for all variables above and draw a missing plot for all variables and missing patterns.
 
 ```{r, results = 'hide', fig.height = 12, fig.width = 10}
-plot_missing(shooting_df, percent = FALSE)
+#plot_missing(shooting_df, percent = FALSE)
 plot_missing(shooting_df, percent = TRUE)
 ```
 
+From the plot we can observe variables 'Location', 'Race', 'Age' and 'Sex' have more than 50% missing rates, while other variables have almost no missing values. The most common missing pattern is where these four variables are missing. Only about 10% of all rows are complete for all variables.
+
+The reason behind this maybe that in most cases perps are not arrested, thus all related information is missing. While other information is documented by police. 
+
 ### Arrest
 
-xxxx
+The second dataset contains every arrest effected in NYC by the NYPD from 2020 to this date.
+
+Each record represents an arrest effected in NYC by the NYPD and includes information about the type of crime, the location and time of enforcement.
+In addition, information related to suspect demographics is also included.
+
 
 ```{r, echo = FALSE}
 arrest_df <- read.csv("data/NYPD_Arrest_2019_2021.csv")
@@ -38,26 +48,34 @@ arrest_df[arrest_df == "" | arrest_df == "UNKNOWN"] <- NA
 colSums(is.na(arrest_df)) %>% sort(decreasing = TRUE)
 ```
 
-xxxx
+We first the number of missing values for all variables above and draw a missing plot for all variables and missing patterns.
 
 ```{r, results = 'hide', fig.height = 8, fig.width = 10}
-plot_missing(arrest_df, percent = FALSE)
+#plot_missing(arrest_df, percent = FALSE)
 plot_missing(arrest_df, percent = TRUE)
 ```
 
+From the plot we can observe variables 'Level of offense', 'Race' have most missing values, however their missing rates are lower than 5%. The other variables have almost no missing values. The most common pattern is complete case, which indicates that there are not a lot of missing values in this dataset.
+
+The different results between this one and last dataset is that in this case perps are arrested, thus all related information is documented by police. However this dataset contains smaller observations than last one.
 
 ### Hate Crime
 
-xxxx
+The last dataset is about confirmed hate crime incidents in New York City.
+
+Each record represents hate crimes reported in NYC by the NYPD and includes information about the description, the location and time of enforcement.
+In addition, information related to suspect demographics is also included.
 
 ```{r, echo = FALSE}
 hate_df <- read.csv("data/NYPD_Hate_Crimes_2019_2021.csv")
 colSums(is.na(hate_df)) %>% sort(decreasing = TRUE)
 ```
 
-xxxx
+We count the number of missing values for all variables above and draw a missing plot for all variables and missing patterns.
 
 ```{r, results = 'hide', fig.height = 10, fig.width = 12}
-plot_missing(hate_df, percent = FALSE)
+#plot_missing(hate_df, percent = FALSE)
 plot_missing(hate_df, percent = TRUE)
 ```
+
+The third dataset is much smaller and contains no missing values.
