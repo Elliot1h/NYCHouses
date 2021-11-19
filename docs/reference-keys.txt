@@ -2,6 +2,11 @@ introduction
 data-sources
 data-transformation
 missing-values
+summary
+about-crimes-dataset
+shooting
+arrest
+hate-crime
 results
 interactive-component
 conclusion
