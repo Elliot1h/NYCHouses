@@ -7,3 +7,16 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+According to research by NYC Health, more than one million New York residents have been impacted by COVID-19. It is extremely difficult for people, especially the elders and children, to keep social distance and stay healthy during the pandemic if they live in a metropolitan area. Moreover, some neighborhoods are attacked by viruses more severely than others. Those neighborhoods might be composed of a large proportion of people who are much more susceptible to the viruses due to their health and living conditions.
+
+Therefore, the main purpose of our final project is to discover whether there exist a certain group of people or communities that have been disproportionately affected by COVID-19 and how they respond to viruses. Moreover, we want to further investigate whether they experienced any other difficulties besides COVID-19 because other factors such as crime rates and air quality are equally important to their personal health and safety. We want to estimate the overall living condition across neighborhoods in New York City.
+
+Our goal is to help people make decisions on finding a healthy and safe place to live by analyzing data collected by multiple NYC departments. We will try to gain some insights from three different perspectives: COVID-19 cases and vaccination rate, crime rate, and air quality. After analyzing all these three perspectives, hopefully we may offer some advice on choosing the ideal neighborhood for people to live.
+
+# Potential Questions
+
+1. Due to COVID-19, which neighborhoods or a certain group of people are severely attacked by viruses? Why are they different from other neighborhoods or people? What are the vaccination rates in different areas?
+
+2. What are the crime rates and most common crimes in different neighborhoods?
+
+3. What is the distribution of air quality data and how does air quality change in different neighborhoods and time?
