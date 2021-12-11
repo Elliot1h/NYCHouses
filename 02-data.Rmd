@@ -5,7 +5,7 @@ We obtain three main datasets from NYC Open Data.
 ## COVID-19 Dataset
 
 ### Daily Counts of Cases, Hospitalizations, and Deaths.
-Such dataset can be found on: https://data.cityofnewyork.us/Health/COVID-19-Daily-Counts-of-Cases-Hospitaliz ations-an/rc75-m7u3
+Such dataset can be found on: https://data.cityofnewyork.us/Health/COVID-19-Daily-Counts-of-Cases-Hospitalizations-an/rc75-m7u3
 https://github.com/nychealth/coronavirus-data
 
 Key variables: `CASE_COUNT`, `HOSPITALIZED_COUNT`, and `DEATH_COUNT` among various demographics aspects across various boroughs.
