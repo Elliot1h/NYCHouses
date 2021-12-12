@@ -1,1 +1,78 @@
+```{r,echo = FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+
+```
+
 # Results
+
+
+## COVID-19 Dataset
+
+## Crime Dataset
+
+## Air Quality Dataset
+
+There are three different measures of air quality: Fine Particulate Matter (PM2.5), Nitrogen Dioxide (NO2) and Ozone (O3). In this part, we draw three boxplots to visualize how these three kinds of data distributed in different boroughs.
+
+```{r,echo = FALSE}
+air_quality = data.frame(read_csv('data/Air_Quality_2016_2018.csv') %>% select('Name', 'Measure', 'Geo Join ID', 'Start_Date', 'Data Value'))
+air_quality = air_quality %>% filter(Measure =='Mean')
+air_quality$Borough = 'Bronx'
+air_quality$Geo.Join.ID = as.character(air_quality$Geo.Join.ID)
+for(i in 1:nrow(air_quality)){
+  tmp = substr(air_quality[i,3],1,1)
+  if(tmp == '2'){
+    air_quality[i,6] = 'Brooklyn'
+  }
+  if(tmp == '3'){
+    air_quality[i,6] = 'Manhattan'
+  }
+  if(tmp == '4'){
+    air_quality[i,6] = 'Queens'
+  }
+  if(tmp == '5'){
+    air_quality[i,6] = 'Staten Island'
+  }
+}
+
+```
+
+First, we choose `PM2.5` to draw the plot, which is the most common indicator for air quality.
+
+
+```{r,echo = FALSE}
+d1 = air_quality %>% filter(Name == 'Fine Particulate Matter (PM2.5)') %>% select(Data.Value, Borough)
+ggplot(d1,aes(x = Data.Value, y = fct_relevel(Borough,'Staten Island','Queens', 'Brooklyn','Bronx'))) + 
+  geom_boxplot() +
+  xlab('Value of indicator')+
+  ylab('Borough')+
+  ggtitle('PM 2.5 Values for Different Boroughs')
+```
+
+From the plot we can observe that Manhattan and Bronx have the highest mean PM 2.5 value , while Staten Island has a better air quality. Manhattan's PM 2.5 value also varies the most. Besides, Bronx has the most outliers which indicates that there are some places are heavily polluted. The reason behind this might be that Manhattan and Bronx have higher population and less land, which could result in more toxic waste in air.
+
+
+```{r,echo = FALSE}
+d2 = air_quality %>% filter(Name == 'Nitrogen Dioxide (NO2)') %>% select(Data.Value, Borough)
+ggplot(d2,aes(x = Data.Value, y = fct_relevel(Borough,'Staten Island','Queens', 'Brooklyn','Manhattan'))) + 
+  geom_boxplot() +
+  xlab('Value of indicator')+
+  ylab('Borough')+
+  ggtitle('Nitrogen Dioxide (NO2) Values for Different Boroughs')
+```
+
+
+In the second graph, we use a different measure NO2, and the results are basically the same with the last one depite that Bronx is the leading polluted borough in this measure.
+
+```{r,echo = FALSE}
+d3 = air_quality %>% filter(Name == 'Ozone (O3)') %>% select(Data.Value, Borough)
+ggplot(d3,aes(x = Data.Value, y = fct_relevel(Borough,'Manhattan', 'Bronx','Staten Island','Brooklyn'))) + 
+  geom_boxplot() +
+  xlab('Value of indicator')+
+  ylab('Borough')+
+  ggtitle('Ozone (O3) Values for Different Boroughs')
+```
+
+Ozone (O3) has become the most dangerous toxic air particles in recent years, which could do serious damage to human lungs. In the third graph, we visualize how O3 data distributed in different boroughs. The results are very different from the last two. Queens becomes the most polluted borough with most outliers. While Mahanttan and Bronx who have most NO2 and PM 2.5 have least O3 in air. We could not find a reason for this observation. However, what we can be sure is that we should use different measures to indicate how air is polluted since different particles may not have the same distributions in boroughs.

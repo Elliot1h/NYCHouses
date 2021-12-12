@@ -1,6 +1,6 @@
-tab:unnamed-chunk-61
-tab:unnamed-chunk-64
-tab:unnamed-chunk-65
+tab:unnamed-chunk-41
+tab:unnamed-chunk-44
+tab:unnamed-chunk-45
 introduction
 data-sources
 covid-19-dataset
@@ -23,5 +23,8 @@ shooting-incident-data
 arrest-data
 hate-crimes-data
 results
+covid-19-dataset-2
+crime-dataset-3
+air-quality-dataset-2
 interactive-component
 conclusion

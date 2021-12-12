@@ -18,7 +18,7 @@ library(tidyverse)
 We first extracted the necessary columns that are mentioned in the previous chapter. Then we notice that in the `Measure` column, there are only two values, we only use Mean as out measure since there are not enough data for the other one.
 
 ```{r,echo = FALSE}
-air_qua = data.frame(read_csv('data/Air_Quality_2016_2018.csv') %>% select('Name', 'Measure', 'Geo Join ID', 'Geo Place Name', 'Start_Date', 'Data Value'))
+air_qua = data.frame(read_csv('data/Air_Quality_2016_2018.csv') %>% select('Name', 'Measure', 'Geo Join ID', 'Start_Date', 'Data Value'))
 air_quality = air_qua
 knitr::kable(as.data.frame(table(air_quality$Measure)), caption = "Measure Counts",row.names = F,font_size = 10)
 air_quality = air_quality %>% filter(Measure =='Mean')
@@ -30,7 +30,7 @@ In the `Measure` column, there are only three values. After counting the numbers
 knitr::kable(as.data.frame(table(air_quality$Name)), caption = "Measure Counts",row.names = F,font_size = 10)
 ```
 
-After removing some observations, we notice that in this data, there are hundreds of values in  `Neighborhood name` columns, we need to use the `Geo Join ID` column to classify them into different boroughs.
+After removing some observations, we notice that in this data, there are hundreds of values in  `Neighborhood name` columns, we need to use the `Geo Join ID` column to classify them into different boroughs. The `Geo Join ID` variable is the identifier of the neighborhood geographic area, which is a three or six digits number. The first digit represents different boroughs.
 
 
 ```{r,echo = FALSE}
@@ -39,16 +39,16 @@ air_quality$Geo.Join.ID = as.character(air_quality$Geo.Join.ID)
 for(i in 1:nrow(air_quality)){
   tmp = substr(air_quality[i,3],1,1)
   if(tmp == '2'){
-    air_quality[i,7] = 'Brooklyn'
+    air_quality[i,6] = 'Brooklyn'
   }
   if(tmp == '3'){
-    air_quality[i,7] = 'Manhattan'
+    air_quality[i,6] = 'Manhattan'
   }
   if(tmp == '4'){
-    air_quality[i,7] = 'Queens'
+    air_quality[i,6] = 'Queens'
   }
   if(tmp == '5'){
-    air_quality[i,7] = 'Staten Island'
+    air_quality[i,6] = 'Staten Island'
   }
 }
 ggplot(air_quality, aes(x = fct_relevel(Borough,'Manhattan','Brooklyn','Queens','Bronx'))) +
