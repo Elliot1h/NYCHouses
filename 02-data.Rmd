@@ -1,6 +1,10 @@
 # Data sources
 
-We obtain three main datasets from NYC Open Data.
+We obtain three main datasets from NYC Open Data. Open Data is free public data published by New York City agencies and other partners, which collects all kinds of data in NYC.
+
+In our project, we mainly consider about three types of datasets: COVID-19 datasets, which contain records of cases, deaths and vaccination populations; Crime datasets, which contain records of shooting, arrest and hate crime data in NYC; Air Quality dataset, which contains air quality data.
+
+We will try to gain some insights from the above three different perspectives. We want to estimate the overall living condition across neighborhoods in New York City. After analyzing all these three perspectives, hopefully we may offer some advice on choosing the ideal neighborhood for people to live.
 
 ## COVID-19 Dataset
 
@@ -37,6 +41,20 @@ Key variables: `Law Code Category Description`, `Bias Motive Description`, and `
 ## Air Quality Dataset
 
 ### New York City Air Quality Surveillance Data:
-Such dataset can be found on: https://data.cityofnewyork.us/Environment/Air-Quality/c3uy-2p5r 
 
-Key variables: `Indicator ID`, `Measure`, `Geo Place Name`, `Time Period` and `Data Value`.
+This dataset contains information on New York City air quality surveillance data.
+
+Air pollution is one of the most important environmental threats to urban populations and while all people are exposed, pollutant emissions, levels of exposure, and population vulnerability vary across neighborhoods. Exposures to common air pollutants have been linked to respiratory and cardiovascular diseases, cancers, and premature deaths. These indicators provide a perspective across time and NYC geographies to better characterize air quality and health in NYC.
+
+Air quality is an important indicator of living wellness. Analyzing air quality data will help us to find a health place for people to live.
+
+Air quality data contains these following key variables: 
+
+```{r, echo  = FALSE}
+Variable.name = c('Indicator ID', 'Measure', 'Geo Place Name', 'Time Period', 'Data Value')
+Description = c('Identifier of the type of measured value', 'How the indicator is measured','Neighborhood name','Description of the time the data applies to', 'The actual data value for this indicator')
+d = data.frame(Variable.name,Description)
+knitr::kable(d, caption = "Key Variables in Air Quality Dataset",
+             row.names = F,font_size = 10)
+```
+This dataset can be found on: https://data.cityofnewyork.us/Environment/Air-Quality/c3uy-2p5r

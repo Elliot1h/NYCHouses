@@ -24,7 +24,7 @@
 <meta name="author" content="Yunze Pan (yp2599), Xinyu Huang (xh2511)" />
 
 
-<meta name="date" content="2021-11-20" />
+<meta name="date" content="2021-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -130,7 +130,9 @@
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<p>We obtain three main datasets from NYC Open Data.</p>
+<p>We obtain three main datasets from NYC Open Data. Open Data is free public data published by New York City agencies and other partners, which collects all kinds of data in NYC.</p>
+<p>In our project, we mainly consider about three types of datasets: COVID-19 datasets, which contain records of cases, deaths and vaccination populations; Crime datasets, which contain records of shooting, arrest and hate crime data in NYC; Air Quality dataset, which contains air quality data.</p>
+<p>We will try to gain some insights from the above three different perspectives. We want to estimate the overall living condition across neighborhoods in New York City. After analyzing all these three perspectives, hopefully we may offer some advice on choosing the ideal neighborhood for people to live.</p>
 <div id="covid-19-dataset" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> COVID-19 Dataset</h2>
 <div id="daily-counts-of-cases-hospitalizations-and-deaths." class="section level3" number="2.1.1">
@@ -169,8 +171,42 @@
 <h2><span class="header-section-number">2.3</span> Air Quality Dataset</h2>
 <div id="new-york-city-air-quality-surveillance-data" class="section level3" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> New York City Air Quality Surveillance Data:</h3>
-<p>Such dataset can be found on: <a href="https://data.cityofnewyork.us/Environment/Air-Quality/c3uy-2p5r" class="uri">https://data.cityofnewyork.us/Environment/Air-Quality/c3uy-2p5r</a></p>
-<p>Key variables: <code>Indicator ID</code>, <code>Measure</code>, <code>Geo Place Name</code>, <code>Time Period</code> and <code>Data Value</code>.</p>
+<p>This dataset contains information on New York City air quality surveillance data.</p>
+<p>Air pollution is one of the most important environmental threats to urban populations and while all people are exposed, pollutant emissions, levels of exposure, and population vulnerability vary across neighborhoods. Exposures to common air pollutants have been linked to respiratory and cardiovascular diseases, cancers, and premature deaths. These indicators provide a perspective across time and NYC geographies to better characterize air quality and health in NYC.</p>
+<p>Air quality is an important indicator of living wellness. Analyzing air quality data will help us to find a health place for people to live.</p>
+<p>Air quality data contains these following key variables:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 2.1: </span>Key Variables in Air Quality Dataset</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable.name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Indicator ID</td>
+<td align="left">Identifier of the type of measured value</td>
+</tr>
+<tr class="even">
+<td align="left">Measure</td>
+<td align="left">How the indicator is measured</td>
+</tr>
+<tr class="odd">
+<td align="left">Geo Place Name</td>
+<td align="left">Neighborhood name</td>
+</tr>
+<tr class="even">
+<td align="left">Time Period</td>
+<td align="left">Description of the time the data applies to</td>
+</tr>
+<tr class="odd">
+<td align="left">Data Value</td>
+<td align="left">The actual data value for this indicator</td>
+</tr>
+</tbody>
+</table>
+<p>This dataset can be found on: <a href="https://data.cityofnewyork.us/Environment/Air-Quality/c3uy-2p5r" class="uri">https://data.cityofnewyork.us/Environment/Air-Quality/c3uy-2p5r</a></p>
 
 </div>
 </div>
