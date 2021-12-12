@@ -1,3 +1,6 @@
+tab:unnamed-chunk-61
+tab:unnamed-chunk-64
+tab:unnamed-chunk-65
 introduction
 data-sources
 covid-19-dataset
@@ -10,14 +13,15 @@ hate-crimes-data-collected-by-nypd.
 air-quality-dataset
 new-york-city-air-quality-surveillance-data
 data-transformation
+covid-19-dataset-1
+crime-dataset-1
+air-quality-dataset-1
 missing-values
 our-analysis
-crime-dataset-1
+crime-dataset-2
 shooting-incident-data
 arrest-data
 hate-crimes-data
 results
 interactive-component
 conclusion
-potential-questions
-tab:unnamed-chunk-2

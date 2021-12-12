@@ -1,1 +1,62 @@
+```{r,echo = FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+
+```
+
 # Data transformation
+
+
+
+## COVID-19 Dataset
+
+## Crime Dataset
+
+## Air Quality Dataset
+
+We first extracted the necessary columns that are mentioned in the previous chapter. Then we notice that in the `Measure` column, there are only two values, we only use Mean as out measure since there are not enough data for the other one.
+
+```{r,echo = FALSE}
+air_qua = data.frame(read_csv('data/Air_Quality_2016_2018.csv') %>% select('Name', 'Measure', 'Geo Join ID', 'Geo Place Name', 'Start_Date', 'Data Value'))
+air_quality = air_qua
+knitr::kable(as.data.frame(table(air_quality$Measure)), caption = "Measure Counts",row.names = F,font_size = 10)
+air_quality = air_quality %>% filter(Measure =='Mean')
+```
+In the `Measure` column, there are only three values. After counting the numbers of different values, we decide not to remove any values.
+
+
+```{r, echo = FALSE}
+knitr::kable(as.data.frame(table(air_quality$Name)), caption = "Measure Counts",row.names = F,font_size = 10)
+```
+
+After removing some observations, we notice that in this data, there are hundreds of values in  `Neighborhood name` columns, we need to use the `Geo Join ID` column to classify them into different boroughs.
+
+
+```{r,echo = FALSE}
+air_quality$Borough = 'Bronx'
+air_quality$Geo.Join.ID = as.character(air_quality$Geo.Join.ID)
+for(i in 1:nrow(air_quality)){
+  tmp = substr(air_quality[i,3],1,1)
+  if(tmp == '2'){
+    air_quality[i,7] = 'Brooklyn'
+  }
+  if(tmp == '3'){
+    air_quality[i,7] = 'Manhattan'
+  }
+  if(tmp == '4'){
+    air_quality[i,7] = 'Queens'
+  }
+  if(tmp == '5'){
+    air_quality[i,7] = 'Staten Island'
+  }
+}
+ggplot(air_quality, aes(x = fct_relevel(Borough,'Manhattan','Brooklyn','Queens','Bronx'))) +
+  geom_histogram(stat="count")+
+  xlab('Borough')+
+  ylab('Count')+
+  ggtitle('Number of observations in different boroughs')
+  
+```
+
+From the histogram above we can see that after classification, the dataset seems to be pretty balanced.

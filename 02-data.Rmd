@@ -51,8 +51,8 @@ Air quality is an important indicator of living wellness. Analyzing air quality 
 Air quality data contains these following key variables: 
 
 ```{r, echo  = FALSE}
-Variable.name = c('Indicator ID', 'Measure', 'Geo Place Name', 'Time Period', 'Data Value')
-Description = c('Identifier of the type of measured value', 'How the indicator is measured','Neighborhood name','Description of the time the data applies to', 'The actual data value for this indicator')
+Variable.name = c('Name', 'Measure', 'Geo Join ID', 'Start_Date', 'Data Value')
+Description = c('Name of the indicator', 'How the indicator is measured','Identifier of the neighborhood geographic area','Date value for the start of the time_period', 'The actual data value for this indicator')
 d = data.frame(Variable.name,Description)
 knitr::kable(d, caption = "Key Variables in Air Quality Dataset",
              row.names = F,font_size = 10)

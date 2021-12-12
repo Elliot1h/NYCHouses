@@ -92,11 +92,16 @@
 <li class="chapter" data-level="2.3.1" data-path="data-sources.html"><a href="data-sources.html#new-york-city-air-quality-surveillance-data"><i class="fa fa-check"></i><b>2.3.1</b> New York City Air Quality Surveillance Data:</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#covid-19-dataset-1"><i class="fa fa-check"></i><b>3.1</b> COVID-19 Dataset</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#crime-dataset-1"><i class="fa fa-check"></i><b>3.2</b> Crime Dataset</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#air-quality-dataset-1"><i class="fa fa-check"></i><b>3.3</b> Air Quality Dataset</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#our-analysis"><i class="fa fa-check"></i><b>4.1</b> Our Analysis</a></li>
-<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#crime-dataset-1"><i class="fa fa-check"></i><b>4.2</b> Crime Dataset</a>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#crime-dataset-2"><i class="fa fa-check"></i><b>4.2</b> Crime Dataset</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="missing-values.html"><a href="missing-values.html#shooting-incident-data"><i class="fa fa-check"></i><b>4.2.1</b> Shooting Incident Data</a></li>
 <li class="chapter" data-level="4.2.2" data-path="missing-values.html"><a href="missing-values.html#arrest-data"><i class="fa fa-check"></i><b>4.2.2</b> Arrest Data</a></li>
@@ -127,7 +132,63 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<div id="covid-19-dataset-1" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> COVID-19 Dataset</h2>
+</div>
+<div id="crime-dataset-1" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Crime Dataset</h2>
+</div>
+<div id="air-quality-dataset-1" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Air Quality Dataset</h2>
+<p>We first extracted the necessary columns that are mentioned in the previous chapter. Then we notice that in the <code>Measure</code> column, there are only two values, we only use Mean as out measure since there are not enough data for the other one.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-64">Table 3.1: </span>Measure Counts</caption>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mean</td>
+<td align="right">2397</td>
+</tr>
+<tr class="even">
+<td align="left">million miles</td>
+<td align="right">321</td>
+</tr>
+</tbody>
+</table>
+<p>In the <code>Measure</code> column, there are only three values. After counting the numbers of different values, we decide not to remove any values.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-65">Table 3.2: </span>Measure Counts</caption>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Fine Particulate Matter (PM2.5)</td>
+<td align="right">987</td>
+</tr>
+<tr class="even">
+<td align="left">Nitrogen Dioxide (NO2)</td>
+<td align="right">987</td>
+</tr>
+<tr class="odd">
+<td align="left">Ozone (O3)</td>
+<td align="right">423</td>
+</tr>
+</tbody>
+</table>
+<p>After removing some observations, we notice that in this data, there are hundreds of values in <code>Neighborhood name</code> columns, we need to use the <code>Geo Join ID</code> column to classify them into different boroughs.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<p>From the histogram above we can see that after classification, the dataset seems to be pretty balanced.</p>
 
+</div>
 </div>
             </section>
 
