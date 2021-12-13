@@ -24,7 +24,7 @@
 <meta name="author" content="Yunze Pan (yp2599), Xinyu Huang (xh2511)" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -147,7 +147,7 @@
 <h2><span class="header-section-number">3.3</span> Air Quality Dataset</h2>
 <p>We first extracted the necessary columns that are mentioned in the previous chapter. Then we notice that in the <code>Measure</code> column, there are only two values, we only use Mean as out measure since there are not enough data for the other one.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-44">Table 3.1: </span>Measure Counts</caption>
+<caption><span id="tab:unnamed-chunk-10">Table 3.1: </span>Measure Counts</caption>
 <thead>
 <tr class="header">
 <th align="left">Var1</th>
@@ -167,7 +167,7 @@
 </table>
 <p>In the <code>Measure</code> column, there are only three values. After counting the numbers of different values, we decide not to remove any values.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-45">Table 3.2: </span>Measure Counts</caption>
+<caption><span id="tab:unnamed-chunk-11">Table 3.2: </span>Measure Counts</caption>
 <thead>
 <tr class="header">
 <th align="left">Var1</th>
@@ -190,7 +190,7 @@
 </tbody>
 </table>
 <p>After removing some observations, we notice that in this data, there are hundreds of values in <code>Neighborhood name</code> columns, we need to use the <code>Geo Join ID</code> column to classify them into different boroughs. The <code>Geo Join ID</code> variable is the identifier of the neighborhood geographic area, which is a three or six digits number. The first digit represents different boroughs.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>From the histogram above we can see that after classification, the dataset seems to be pretty balanced.</p>
 
 </div>

@@ -1,6 +1,6 @@
-tab:unnamed-chunk-41
-tab:unnamed-chunk-44
-tab:unnamed-chunk-45
+tab:unnamed-chunk-7
+tab:unnamed-chunk-10
+tab:unnamed-chunk-11
 introduction
 data-sources
 covid-19-dataset

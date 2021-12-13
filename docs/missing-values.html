@@ -24,7 +24,7 @@
 <meta name="author" content="Yunze Pan (yp2599), Xinyu Huang (xh2511)" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,7 +156,7 @@
 ##                PRECINCT STATISTICAL_MURDER_FLAG                 VIC_SEX 
 ##                       0                       0                       0</code></pre>
 <p>We first replace the “” and “UNKNOWN” with NA in the dataset and then count the number of missing values by column. <code>LOCATION_DESC</code> column has the greatest number of missing values. Such column tells us the location of the shooting incident. <code>PERP_RACE</code>, <code>PERP_AGE_GROUP</code>, and <code>PERP_SEX</code> also have a great amount of missing values and their NA counts are very close to each other. Next, we draw a missing plot for all variables and missing patterns.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-50-1.png" width="960" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="960" /></p>
 <p>From the plot we can observe there are 15 different patterns. Variables <code>LOCATION_DESC</code>, <code>PERP_RACE</code>, <code>PERP_AGE_GROUP</code>, and <code>PERP_SEX</code> have more than 50% missing rates, while other variables have almost no missing values. Those four variables are the most common missing pattern. Only about 10% of all rows are recored as complete for all variables that we are interested in.</p>
 <p>The reason behind this maybe that in most cases perpetrator are not arrested, thus all related information is missing even though other information is documented by police. With respect to shooting crimes, it is difficult for the police to identify the perpetrators.</p>
 </div>
@@ -170,7 +170,7 @@
 ##        LAW_CODE        PERP_SEX 
 ##               0               0</code></pre>
 <p>We follow the same procedure as above to first count the number of missing values by column. We observe variable <code>LAW_CAT_CD</code> has the greatest number of missing values and it is almost 2 times greater than <code>PERP_RACE</code>’s number of NAs.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-52-1.png" width="960" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="960" /></p>
 <p>After drawing a missing plot for all variables and missing patterns, we find that even though variables <code>PERP_RACE</code>, <code>KY_CD</code>, <code>OFNS_DESC</code>, and <code>PD_DESC</code> have some missing values the portion of those missing data is very small if compared with the whole dataset. Moreover, the other variables have almost no missing values. The most common pattern is complete case, which suggests that the police manage to collect comprehensive detailed information for an arrest.</p>
 </div>
 <div id="hate-crimes-data" class="section level3" number="4.2.3">
@@ -191,7 +191,7 @@
 ##                   Arrest.Date 
 ##                             0</code></pre>
 <p>We count the number of missing values by column and draw a missing plot for all variables and missing patterns.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-54-1.png" width="1152" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="1152" /></p>
 <p>We discover that the dataset is much relatively smaller than the previous datasets and contains no missing values. All hate crimes data are complete.</p>
 
 </div>

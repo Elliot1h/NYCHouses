@@ -44,7 +44,7 @@ First, we choose `PM2.5` to draw the plot, which is the most common indicator fo
 
 ```{r,echo = FALSE}
 d1 = air_quality %>% filter(Name == 'Fine Particulate Matter (PM2.5)') %>% select(Data.Value, Borough)
-ggplot(d1,aes(x = Data.Value, y = fct_relevel(Borough,'Staten Island','Queens', 'Brooklyn','Bronx'))) + 
+ggplot(d1,aes(x = Data.Value, y = fct_relevel(Borough,'Staten Island','Queens', 'Brooklyn','Manhattan'))) + 
   geom_boxplot() +
   xlab('Value of indicator')+
   ylab('Borough')+
@@ -68,7 +68,7 @@ In the second graph, we use a different measure NO2, and the results are basical
 
 ```{r,echo = FALSE}
 d3 = air_quality %>% filter(Name == 'Ozone (O3)') %>% select(Data.Value, Borough)
-ggplot(d3,aes(x = Data.Value, y = fct_relevel(Borough,'Manhattan', 'Bronx','Staten Island','Brooklyn'))) + 
+ggplot(d3,aes(x = Data.Value, y = fct_relevel(Borough, 'Bronx','Manhattan','Staten Island','Brooklyn'))) + 
   geom_boxplot() +
   xlab('Value of indicator')+
   ylab('Borough')+
