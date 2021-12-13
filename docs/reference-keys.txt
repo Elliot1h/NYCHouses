@@ -1,6 +1,6 @@
-tab:unnamed-chunk-7
-tab:unnamed-chunk-10
-tab:unnamed-chunk-11
+tab:unnamed-chunk-9
+tab:unnamed-chunk-12
+tab:unnamed-chunk-13
 introduction
 data-sources
 covid-19-dataset
@@ -27,4 +27,7 @@ covid-19-dataset-2
 crime-dataset-3
 air-quality-dataset-2
 interactive-component
+link-to-the-interactive-map
+descriptions
+instructions-for-using-the-map
 conclusion

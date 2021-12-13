@@ -14,7 +14,7 @@ library(tidyverse)
 
 ## Air Quality Dataset
 
-There are three different measures of air quality: Fine Particulate Matter (PM2.5), Nitrogen Dioxide (NO2) and Ozone (O3). In this part, we draw three boxplots to visualize how these three kinds of data distributed in different boroughs.
+There are three different measures of air quality: Fine Particulate Matter (PM2.5), Nitrogen Dioxide (NO2) and Ozone (O3). In this part, we draw three boxplots and three lineplots to visualize how these three kinds of data distribute in different boroughs and how they change over the time.
 
 ```{r,echo = FALSE}
 air_quality = data.frame(read_csv('data/Air_Quality_2016_2018.csv') %>% select('Name', 'Measure', 'Geo Join ID', 'Start_Date', 'Data Value'))
@@ -49,9 +49,23 @@ ggplot(d1,aes(x = Data.Value, y = fct_relevel(Borough,'Staten Island','Queens', 
   xlab('Value of indicator')+
   ylab('Borough')+
   ggtitle('PM 2.5 Values for Different Boroughs')
+
+d1_t = air_quality %>% filter(Name == 'Fine Particulate Matter (PM2.5)') %>% select(Start_Date, Data.Value, Borough)
+for(i in 1:nrow(d1_t)){
+  d1_t[i,1] = paste('20',strsplit(d1_t[i,1], split = '/')[[1]][3],'-', strsplit(d1_t[i,1], split = '/')[[1]][1],sep = '')
+}
+d1_data = d1_t %>% group_by(Start_Date,Borough) %>% summarize(n = mean(Data.Value))
+
+ggplot(data=d1_data,aes(x=Start_Date, y=n, group=Borough, color=Borough))+
+  geom_line()+
+  xlab('Year and Month')+
+  ylab('Mean Indicator Value')+
+  ggtitle('PM 2.5 Values in Different Years')
 ```
 
 From the plot we can observe that Manhattan and Bronx have the highest mean PM 2.5 value , while Staten Island has a better air quality. Manhattan's PM 2.5 value also varies the most. Besides, Bronx has the most outliers which indicates that there are some places are heavily polluted. The reason behind this might be that Manhattan and Bronx have higher population and less land, which could result in more toxic waste in air.
+
+From the lineplot we can also observe that PM 2.5 in air quality is periodical, which is usually lower in the begining of a year. We can also conclude that for all boroughs, the air quality is getting better and better from 2016 to 2018 as the values are descending.
 
 
 ```{r,echo = FALSE}
@@ -61,10 +75,25 @@ ggplot(d2,aes(x = Data.Value, y = fct_relevel(Borough,'Staten Island','Queens', 
   xlab('Value of indicator')+
   ylab('Borough')+
   ggtitle('Nitrogen Dioxide (NO2) Values for Different Boroughs')
+
+d2_t = air_quality %>% filter(Name == 'Nitrogen Dioxide (NO2)') %>% select(Start_Date, Data.Value, Borough)
+for(i in 1:nrow(d2_t)){
+  d2_t[i,1] = paste('20',strsplit(d2_t[i,1], split = '/')[[1]][3],'-', strsplit(d2_t[i,1], split = '/')[[1]][1],sep = '')
+}
+d2_data = d2_t %>% group_by(Start_Date,Borough) %>% summarize(n = mean(Data.Value))
+
+ggplot(data=d2_data,aes(x=Start_Date, y=n, group=Borough, color=Borough))+
+  geom_line()+
+  xlab('Year and Month')+
+  ylab('Mean Indicator Value')+
+  ggtitle('Nitrogen Dioxide (NO2) Values in Different Years')
 ```
 
 
 In the second graph, we use a different measure NO2, and the results are basically the same with the last one depite that Bronx is the leading polluted borough in this measure.
+
+From the lineplot we can also observe that NO2 in air quality is also periodical. One difference from the above one is that the NO2 is usually lower in the middle of a year and peaks in the end of the year. We can also conclude that for all boroughs, the air quality is getting better and better from 2016 to 2018 as the values are descending.
+
 
 ```{r,echo = FALSE}
 d3 = air_quality %>% filter(Name == 'Ozone (O3)') %>% select(Data.Value, Borough)
@@ -73,6 +102,20 @@ ggplot(d3,aes(x = Data.Value, y = fct_relevel(Borough, 'Bronx','Manhattan','Stat
   xlab('Value of indicator')+
   ylab('Borough')+
   ggtitle('Ozone (O3) Values for Different Boroughs')
+
+d3_t = air_quality %>% filter(Name == 'Ozone (O3)') %>% select(Start_Date, Data.Value, Borough)
+for(i in 1:nrow(d3_t)){
+  d3_t[i,1] = paste('20',strsplit(d3_t[i,1], split = '/')[[1]][3],'-', strsplit(d3_t[i,1], split = '/')[[1]][1],sep = '')
+}
+d3_data = d3_t %>% group_by(Start_Date,Borough) %>% summarize(n = mean(Data.Value))
+
+ggplot(data=d3_data,aes(x=Start_Date, y=n, group=Borough, color=Borough))+
+  geom_line()+
+  xlab('Year and Month')+
+  ylab('Mean Indicator Value')+
+  ggtitle('O3 Values in Different Years')
 ```
 
 Ozone (O3) has become the most dangerous toxic air particles in recent years, which could do serious damage to human lungs. In the third graph, we visualize how O3 data distributed in different boroughs. The results are very different from the last two. Queens becomes the most polluted borough with most outliers. While Mahanttan and Bronx who have most NO2 and PM 2.5 have least O3 in air. We could not find a reason for this observation. However, what we can be sure is that we should use different measures to indicate how air is polluted since different particles may not have the same distributions in boroughs.
+
+The lineplot does not show much information since there are not enough data. We can not be sure if O3 in air quality is also periodical. However, we can observe that for all boroughs, the air quality is first getting better and then getting worse from 2016 to 2018 when considering O3 values. And we should be more careful about O3.

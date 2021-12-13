@@ -1,3 +1,27 @@
 # Interactive component
 
+## Link to the interactive map
+
+Click [here](https://vizhub.com/Elliot1h/df998a47edc94286afe321503029deb4) or copy the url: https://vizhub.com/Elliot1h/df998a47edc94286afe321503029deb4 for this Interactive component
+
+## Descriptions
+
+The interactive part of our analysis was built with D3 version 6, which the code has been uploaded to [vizhub](https://vizhub.com). Due to time limit, we only create the interactive component for air quality dataset in NYC.The date we use are from NYC open data as described in previous sections, but formats of certain columns were changed to adapt to the plot. You can find the data [here](https://github.com/Elliot1h/NYCHouses/blob/main/data/Air_Quality_2016_2018.csv) under the `data` folder of our repo.
+
+## Instructions for using the map
+
+The plot is initialized with a histogram of mean PM 2.5 values in different boroughs. 
+
+1. Users can press the bottons below the graph, you can see the mean NO2 and O3 values for different boroughs.
+
+2. Users can hover the mouse over a bar to see the difference between values for this borough and other boroughs.
+
+
+References:
+
+NYC Employment Analysis https://tracy3057.github.io/NYC_Employment_Analysis_Book/
+
+
+
+
 
