@@ -7,31 +7,7 @@ library(tidyverse)
 
 # Data transformation
 
-Initially the two datasets were imported and combined into a single data frame. The single dataframe now consisted of shooting data provided by the NYPD over the years 2006 to 2019. As we are evaluating on neighborhoods it is necessary to find out what neighborhood each event corresponds to. Unfortunately, unlike the other two datasets the zip code was not provided and the only information given was the longitude and latitude data. Using python packages we were able to retrieve the zip code information using longitude and latitude data. After the zip codes were added in a new column ‘Zip’ the file was exported as NYPD_ZIP.csv. The below is the python code we used.
-
-
-As a result, we have decided to utilize a reduced version of this dataset that only includes data starting in 2011.
-
-
-For a lot of our analysis we will want a combined dataset, so we can append the historical data to the 2021 data like so:
-
-In this dataset, many columns are pre-processed by the authors, so our work is to choose the variables we need and change the names and orders of factor levels.
-
-We cleaned the dataset in the following steps:
-
-- Select AppStore, PriceSensitive, WhyDownload, Currency & demographic columns (Gender, Age, Nationality, Education, Occupation, etc.)
-
-- Mutate character variables to factors
-
-- Rename the levels with readable information
-
-- Reorder the levels for future visualization
-
 In this section, we are going to load our dataset and clean it. There are five main steps to transform the dataset: 1) download the csv files from the NYCD OpenData and extract data only from a specific time interval, 2) continue to select a proportion of variables to avoid unnecessary data, 3) detect the missing values in the dataset and replace them with "NA", 4) add or remove some variables that may be helpful to conduct our analyses, and 5) change the orders of factor levels or some character's names so that they can be easily understood.
-
-We combine sub-datasets into on dataset as a whole. For example, after we add the information of years in different sub datasets, we will combine these data sets into one dataset that contains information of all of these years.
-For some NAs that still exists, we fill them by the group averages within combined datasets.
-We do calculations based on the existed variables to get other variables that we want add them as new columns.
 
 
 ## COVID-19 Dataset
@@ -95,7 +71,6 @@ arrest_df <- arrest_df %>%
 summary(arrest_df)
 head(arrest_df)
 ```
-
 
 
 ## Air Quality Dataset
