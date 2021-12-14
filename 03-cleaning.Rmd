@@ -96,9 +96,6 @@ summary(arrest_df)
 head(arrest_df)
 ```
 
-### Hate Crimes Data
-
-Since the dataset provided is already clean, we only need to extracted the necessary columns that are mentioned in the previous chapter. 
 
 
 ## Air Quality Dataset

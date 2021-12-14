@@ -51,13 +51,6 @@ https://data.cityofnewyork.us/Public-Safety/NYPD-Arrest-Data-Year-to-Date-/uip8-
 
 Key variables: `LAW_CODE`, `AGE_GROUP`, `PERP_SEX`, and `PERP_RACE` across `ARREST_BORO` at `Record Create Date`.
 
-### Hate Crimes Data collected by NYPD.
-
-The dataset containing confirmed hate crime incidents in NYC.
-
-This dataset can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Hate-Crimes/bqiq-cu78
-
-Key variables: `Law Code Category Description`, `Bias Motive Description`, and `Offense Description` across `County` at `ARREST_DATE`.
 
 ## Air Quality Dataset
 

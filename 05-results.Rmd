@@ -1,11 +1,16 @@
-```{r,echo = FALSE}
+
+# Results
+
+In this section, we will present our results by using various visualization techniques to evaluate the overall living condition across neighborhoods in New York City. We think the findings we discover will help people make a better decision to to maintain a safe and healthy life.
+
+```{r, echo = FALSE}
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
-
+library(ggpubr)
+library(vcd)
+library(lubridate)
 ```
-
-# Results
 
 
 ## COVID-19 Dataset
@@ -59,6 +64,270 @@ One interesting fact is that the rate is much higher than rate for fully vaccina
 
 
 ## Crime Dataset
+
+### Shooting Incident Data
+
+```{r}
+shooting_df <- read_csv('data/NYPD_Shooting_2020_2021.csv', na = c("", "UNKNOWN"), show_col_types = FALSE) %>%
+  select(-c('PRECINCT', 'PERP_AGE_GROUP', 'PERP_RACE', 'PERP_SEX')) %>% 
+  mutate(BORO = case_when(BORO == 'BRONX' ~ 'Bronx',
+                   BORO == 'STATEN ISLAND' ~ 'Staten Island',
+                   BORO == 'BROOKLYN' ~ 'Brooklyn',
+                   BORO == 'MANHATTAN' ~ 'Manhattan',
+                   BORO == 'QUEENS' ~ 'Queens'))
+```
+
+We try to take a look at the trend of the shooting incidents across Brooklyn, Bronx, Manhattan, Queens, and Staten Island boroughs since 2020-01-01. The intuition is that we want to discover whether shooting incidents decrease during the COVID-19 pandemic due to the stay-at-home orders, travel restrictions and Business Closures. However, the truth is the gun violence epidemic has surged since the pandemic started. As we can see from the plot, the number of shooting incidents for all five boroughs in New York City all reached the peak value since the beginning of the COVID-19 pandemic. In July 2020, the number of shooting incidents occurred in Brooklyn in July 2020 is 165, which is 135% greater than the second largest number of shooting incidents occurred in Bronx. Even though the majority of people are forced to stay home, gun violence spikes during the summer of 2020. One possible explanation could be that the prolonged emotional and financial stress may lead to the indoor violence. According to Gun Violence Archive, there is a 25 percent increase in deaths related to gun homicides and non-suicide-related shootings from 2019. It seems like less shooting incidents happened during the winter holiday for five boroughs. Compared with Brooklyn and Bronx, Manhattan, Queens, and Staten Island have a relatively smaller number of gun violence incidents.
+
+```{r, results = 'hide', echo = FALSE, fig.height = 6, fig.width = 12}
+trend1 <- shooting_df %>% 
+  mutate(OCCUR_DATE = as.Date(OCCUR_DATE, format = "%m/%d/%y"),
+         month = format(OCCUR_DATE, "%m"),
+         year = format(OCCUR_DATE, "%Y"),
+         new_date = make_date(year, month)) %>% 
+  group_by(new_date, BORO) %>% 
+  summarise(count = n())
+trend1$BORO <- factor(trend1$BORO, levels = c("Brooklyn", "Bronx", "Manhattan", "Queens", "Staten Island"))
+
+ggplot(trend1, aes(new_date, count, color = BORO)) +
+  geom_line() +
+  scale_x_date(date_labels = "%b %y", date_breaks = "month") +
+  ggtitle("Number of Shooting Incidents Across Boroughs") +
+  labs(x = "", y = "count") +
+  theme_grey(16) +
+  theme(legend.title = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+When looking at the location of where shooting incidents happened, we create a multidot Cleveland dot plot to display the 30 most frequent places and show the counts for Brooklyn, Bronx, Manhattan, Queens, and Staten Island boroughs for each of these 30 places. Surprisingly, for each borough, a great proportion of location descriptions about the shooting incidents are missing. For example, the police can not determine over 700 shooting incidents in Brooklyn and over 250 cases' locations in Manhattan are unknown or missing. From the plot, we can also see that multi-dwell public houses and apartment buildings are the places where the shooting took place most often. Such findings can somewhat support the evidence that gun violence surged during the pandemic as we just discussed.
+
+Next we will try to explore the time that shooting incidents took place most frequently. Therefore, we use a square heatmap to help us identify some interesting pattern based on the time of the shooting incidents. We first need to aggregate data by day and hour. For example, an incident occurred on 2020-04-08 16:35:00. Then, such data point has a x coordinate equal to 16 and a y coordinate equal to 8. After accumulating all shooting incidents, we can distinguish which hour in a day or which day in a month appears to be the most dangerous period of time to commute in the city.
+
+```{r, results = 'hide', echo = FALSE, fig.height = 10, fig.width = 12}
+trend2 <- shooting_df %>% 
+  mutate(OCCUR_DATE = as.Date(OCCUR_DATE, format = "%m/%d/%y"),
+         day = format(OCCUR_DATE, "%d"),
+         hour = format(strptime(OCCUR_TIME,"%H:%M:%S"),'%H'))
+trend2$BORO <- factor(trend2$BORO, levels = c("Brooklyn", "Bronx", "Manhattan", "Queens", "Staten Island"))
+trend2 <- trend2 %>% select(BORO, day, hour)
+
+ggplot(trend2, aes(hour, day)) +
+  geom_bin2d() +
+  scale_fill_gradient(low = "#DEEBF7", high = "#08519C") +
+  ggtitle("Square Heatmap of Time of Shooting Incidents") +
+  theme_classic(14)
+```
+
+The heat map reveals that fewer shooting incidents happened between 5:00 AM and 10:00 AM if compared with other time slots. Clearly, many shooting incidents took place around midnight. We also find a very dark square in the plot which is located at (03, 13), implying that there might be a surge in gun violence on a specific day.
+
+```{r, results = 'hide', echo = FALSE, fig.width=15, fig.height=20}
+sho <- shooting_df %>% select(BORO, STATISTICAL_MURDER_FLAG, VIC_AGE_GROUP, VIC_RACE, VIC_SEX)
+sho$BORO <- factor(sho$BORO, levels = c("Brooklyn", "Bronx", "Manhattan", "Queens", "Staten Island"))
+sho$STATISTICAL_MURDER_FLAG <- factor(sho$STATISTICAL_MURDER_FLAG, levels = c("TRUE", "FALSE"))
+sho$VIC_AGE_GROUP <- factor(sho$VIC_AGE_GROUP, levels = c("<18", "18-24", "25-44", "45-64", "65+", "NA"))
+sho$VIC_RACE <- factor(sho$VIC_RACE, levels = c("BLACK", "BLACK HISPANIC", "WHITE", "WHITE HISPANIC", "ASIAN / PACIFIC ISLANDER", "NA"))
+sho$VIC_SEX <- factor(sho$VIC_SEX, levels = c("M", "F", "U"))
+
+sho %>%
+  select(c(where(is.factor))) %>%
+  table() %>%
+  pairs(space = .2,
+        lower_panel = pairs_mosaic(highlighting = 2, spacing = spacing_equal(0)),
+        upper_panel = pairs_mosaic(spacing = spacing_equal(0)),
+        diag_panel = pairs_barplot(
+          gp_vartext = gpar(fontsize = 12),
+          gp_leveltext = gpar(fontsize = 8),
+          abbreviate = 2),
+        main = "Mosaic Pair Plot of Victims' Demographics")
+```
+
+Besides, we draw a mosaic pairs plot of all categorical (factor) variables related to victims' demographics. For example, `BORO` variable could tell us the place victims visited. `STATISTICAL_MURDER_FLAG` variable could tell us whether the victim was dead. Other three variables give us more info about the victim's demographics. Not surprisingly, Brooklyn and Bronx have more gun violence instances. Around 20% of victims are dead. Most of victims are 25-44 years old, African American, and male. Based on the plot, borough (variable `BORO`) and victim's race (variable `VIC_RACE`) seem to have a strong association. Compared with other boroughs, a victim's race is more likely to be African American and less likely to be White when the shooting incident happened in Brooklyn. Any pair of variables that consist of gender (variable `VIC_SEX`) has a weak association.
+
+### Arrest Data
+
+```{r, results = 'hide', echo = FALSE}
+arrest_df <- read_csv('data/NYPD_Arrest_2020_2021.csv', na = c("", "UNKNOWN"), show_col_types = FALSE) %>%
+  select('ARREST_BORO', 'ARREST_DATE', 'LAW_CAT_CD', 'OFNS_DESC', 'PD_DESC')
+arrest_df$ARREST_DATE <- as.Date(arrest_df$ARREST_DATE, format = "%m/%d/%y")
+arrest_df <- arrest_df %>% 
+  mutate(ArrestYear = factor(as.numeric(format(ARREST_DATE,'%Y'))),
+         ARREST_MONTH = as.numeric(format(ARREST_DATE,'%m')),
+         ARREST_WEEKDAY = weekdays(ARREST_DATE),
+         ARREST_WEEKDAY = case_when(ARREST_WEEKDAY == 'Monday' ~ 'Mon',
+                                    ARREST_WEEKDAY == 'Tuesday' ~ 'Tue',
+                                    ARREST_WEEKDAY == 'Wednesday' ~ 'Wed',
+                                    ARREST_WEEKDAY == 'Thursday' ~ 'Thr',
+                                    ARREST_WEEKDAY == 'Friday' ~ 'Fri',
+                                    ARREST_WEEKDAY == 'Saturday' ~ 'Sat',
+                                    ARREST_WEEKDAY == 'Sunday' ~ 'Sun'),
+         ARREST_BORO = case_when(ARREST_BORO == 'B' ~ 'Bronx',
+                                 ARREST_BORO == 'S' ~ 'Staten Island',
+                                 ARREST_BORO == 'K' ~ 'Brooklyn',
+                                 ARREST_BORO == 'M' ~ 'Manhattan',
+                                 ARREST_BORO == 'Q' ~ 'Queens'),
+         LAW_CAT_CD = case_when(LAW_CAT_CD == 'F' ~ 'Felony',
+                                 LAW_CAT_CD == 'M' ~ 'Misdemeanor',
+                                 LAW_CAT_CD == 'V' ~ 'Violation',
+                                 LAW_CAT_CD == 'I' ~ 'Infraction'))
+```
+
+```{r, results = 'hide', echo = FALSE, fig.height = 6, fig.width = 12}
+arrest_df$ARREST_BORO <- factor(arrest_df$ARREST_BORO, levels = c("Brooklyn", "Manhattan", "Bronx", "Queens", "Staten Island"))
+arrest_df %>%
+  ggplot(aes(factor(month.abb[ARREST_MONTH], levels = month.abb))) + 
+  geom_bar(color = "blue", fill = "lightblue") +
+  facet_wrap(~ARREST_BORO) +
+  theme_grey(16) +
+  theme(axis.text.x=element_text(angle=45)) +
+  ggtitle("Number of Arrests Across Boroughs") +
+  xlab("Month")
+```
+
+How about the trend of arrests across five boroughs in New York city since 2020-01-01? We want to investigate whether the number of arrests have a similar pattern as the number of shooting incidents. It is worth noting that the overall number of arrests is way larger than the overall number of shooting incidents. Brooklyn and Manhattan are the two boroughs that have a very large number of arrests. Staten island has the least number of arrests throughout the year. Except for Staten island, we find other four boroughs have very similar distributions. In January, February and March, four boroughs have their top 3 greatest number of arrests in a year respectively. A small surge can be observed in May for four boroughs. Moreover, we can see a big gap between September and October and fewer arrests were recorded in winter holiday, which follows a same trend that we have observed in our shooting incident dataset.
+
+```{r, results = 'hide', echo = FALSE, fig.height = 15, fig.width = 12}
+g1 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Brooklyn'), aes(factor(month.abb[ARREST_MONTH], levels = month.abb), fill = ArrestYear)) +
+  geom_bar(position = position_dodge()) +
+  theme_grey(16) +
+  scale_fill_manual(values = c("#b2df8a", "#a6cee3")) +
+  scale_y_continuous(limits = c(0, 4500)) +
+  ggtitle("Number of Arrests in Brooklyn") +
+  xlab("Month")
+
+g2 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Manhattan'), aes(factor(month.abb[ARREST_MONTH], levels = month.abb), fill = ArrestYear)) +
+  geom_bar(position = position_dodge()) +
+  theme_grey(16) +
+  scale_fill_manual(values = c("#b2df8a", "#a6cee3")) +
+  scale_y_continuous(limits = c(0, 4500)) +
+  ggtitle("Number of Arrests in Manhattan") +
+  xlab("Month")
+
+g3 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Bronx'), aes(factor(month.abb[ARREST_MONTH], levels = month.abb), fill = ArrestYear)) +
+  geom_bar(position = position_dodge()) +
+  theme_grey(16) +
+  scale_fill_manual(values = c("#b2df8a", "#a6cee3")) +
+  scale_y_continuous(limits = c(0, 4500)) +
+  ggtitle("Number of Arrests in Bronx") +
+  xlab("Month")
+
+g4 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Queens'), aes(factor(month.abb[ARREST_MONTH], levels = month.abb), fill = ArrestYear)) +
+  geom_bar(position = position_dodge()) +
+  theme_grey(16) +
+  scale_fill_manual(values = c("#b2df8a", "#a6cee3")) +
+  scale_y_continuous(limits = c(0, 4500)) +
+  ggtitle("Number of Arrests in Queens") +
+  xlab("Month")
+
+g5 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Staten Island'), aes(factor(month.abb[ARREST_MONTH], levels = month.abb), fill = ArrestYear)) +
+  geom_bar(position = position_dodge()) +
+  theme_grey(16) +
+  scale_fill_manual(values = c("#b2df8a", "#a6cee3")) +
+  scale_y_continuous(limits = c(0, 4500)) +
+  ggtitle("Number of Arrests in Staten Island") +
+  xlab("Month")
+
+annotate_figure(ggarrange(g1, g2, g3, g4, g5, ncol = 1, nrow = 5))
+```
+
+We also plot a histogram to display the number of arrests in different years across Brooklyn, Manhattan, Bronx, Queens, and Staten Island boroughs. We try to find whether the policy that aimed at reducing the crowd during the COVID-19 pandemic had an impact on reducing number of arrests in New York city. As we can see, there exist two sharp decreases. One occurred after March 2020 and the other one occurred after May 2020. However, as business began to reopen and citizens in New York city became to get back normal starting in Spring 2021, the number of arrests was rising. Across five boroughs in New York city, the number of arrests in 2021 exceeded last year since the beginning of March 2021.
+
+```{r, results = 'hide', echo = FALSE, fig.height = 12, fig.width = 6}
+g1 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Brooklyn'), aes(factor(ARREST_WEEKDAY, levels = c('Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun')))) +
+  geom_bar(color = "blue", fill = "lightblue") +
+  theme_grey(16) +
+  scale_y_continuous(limits = c(0, 12500)) +
+  ggtitle("Number of Arrests in Brooklyn") +
+  xlab("Month")
+
+g2 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Manhattan'), aes(factor(ARREST_WEEKDAY, levels = c('Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun')))) +
+  geom_bar(color = "blue", fill = "lightblue") +
+  theme_grey(16) +
+  scale_y_continuous(limits = c(0, 12500)) +
+  ggtitle("Number of Arrests in Manhattan") +
+  xlab("Month")
+
+g3 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Bronx'), aes(factor(ARREST_WEEKDAY, levels = c('Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun')))) +
+  geom_bar(color = "blue", fill = "lightblue") +
+  theme_grey(16) +
+  scale_y_continuous(limits = c(0, 12500)) +
+  ggtitle("Number of Arrests in Bronx") +
+  xlab("Month")
+
+g4 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Queens'), aes(factor(ARREST_WEEKDAY, levels = c('Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun')))) +
+  geom_bar(color = "blue", fill = "lightblue") +
+  theme_grey(16) +
+  scale_y_continuous(limits = c(0, 12500)) +
+  ggtitle("Number of Arrests in Queens") +
+  xlab("Month")
+
+g5 <- ggplot(arrest_df %>% filter(ARREST_BORO == 'Staten Island'), aes(factor(ARREST_WEEKDAY, levels = c('Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun')))) +
+  geom_bar(color = "blue", fill = "lightblue") +
+  theme_grey(16) +
+  scale_y_continuous(limits = c(0, 12500)) +
+  ggtitle("Number of Arrests in Staten Island") +
+  xlab("Month")
+
+annotate_figure(ggarrange(g1, g2, g3, g4, g5, ncol = 1, nrow = 5))
+```
+
+Another interesting finding is that arrests usually happen during the middle of the week. The number of arrests gradually increases until it reaches the maximum on Wednesday and then decreases. One possible explanation is that fewer police on the street during the weekends.
+
+We also want to track types of arrests. By displaying the bar plot, we find the most common type of arrest is misdemeanor with 117856 counts. Felony has the second largest count which is 134219. The least common type of arrest is infraction with 351 counts. Since violations and in fractions appear to be less common in our dataset, we will only discover the association between type of arrest such as felony and misdemeanor and other variables like boroughs as well as days in a week. According to the NYPD, misdemeanors are considered to be crimes that are not as serious as felonies. As a result, we are more concerned with arrests that are related to felonies.
+
+```{r, results = 'hide', echo = FALSE}
+arrest_type <- arrest_df %>% group_by(LAW_CAT_CD) %>% summarise(count = n() / 1000)
+arrest_type$LAW_CAT_CD <- factor(arrest_type$LAW_CAT_CD, levels = c("Misdemeanor", "Felony", "Violation", "Infraction", "NA"))
+ggplot(arrest_type, aes(x = LAW_CAT_CD, y = count)) +
+  geom_bar(stat = "identity") +
+  theme_grey(16) +
+  scale_y_continuous(expand = expansion(mult = c(0, .05))) +
+  ylab("count (in thousands)") +
+  xlab("Level of Offense")
+```
+
+```{r, results = 'hide', echo = FALSE, fig.height = 8, fig.width = 12}
+arr <- arrest_df %>% filter(LAW_CAT_CD == "Misdemeanor" | LAW_CAT_CD == "Felony")
+arr$ARREST_WEEKDAY <- factor(arr$ARREST_WEEKDAY, levels = c('Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'))
+arr5 <- arr %>% select(ARREST_WEEKDAY, LAW_CAT_CD, ARREST_BORO) %>% group_by(ARREST_WEEKDAY, LAW_CAT_CD, ARREST_BORO) %>% summarize(Freq = n())
+mosaic(LAW_CAT_CD ~ ARREST_BORO + ARREST_WEEKDAY, direction = c("v", "v", "h"), arr5, labeling = labeling_border(set_varnames = c(ARREST_WEEKDAY = "Day", LAW_CAT_CD = "Level of Offense", ARREST_BORO = "Borough")))
+```
+
+From the mosaic plot, we find there is an association between type of arrest and day in a week. Across five boroughs, number of arrests that are felonies is relatively smaller on Friday, Saturday and Sunday. Moreover, there is an association between type of arrest and location. Brooklyn and Queens have relatively a larger number of arrests that are felonies. 
+
+We also want to look at the most common offense type by creating a multidot Cleveland dot plot to display the 30 most frequent offense types and show the counts for Brooklyn, Manhattan, Bronx, Queens and Staten Island boroughs for each of these 30 offense types. We can see that for each offense type Brooklyn and Manhattan have largest counts among five boroughs while Staten island always has the smallest counts.
+
+```{r, results = 'hide', echo = FALSE, fig.height = 10, fig.width = 12}
+top30names <- arrest_df %>%
+  group_by(OFNS_DESC) %>%
+  summarize(n = n()) %>%
+  slice_max(order_by = n, n = 30) %>%
+  pull(OFNS_DESC)
+
+top30byboros <- arrest_df %>%
+  filter(OFNS_DESC %in% top30names) %>%
+  group_by(OFNS_DESC, ARREST_BORO) %>%
+  summarize(count = n()) %>%
+  ungroup()
+
+top30total <- top30byboros %>%
+  group_by(OFNS_DESC) %>%
+  summarize(count = sum(count)) %>%
+  mutate(ARREST_BORO = "Total")
+
+top30 <- bind_rows(top30byboros, top30total) %>% 
+  mutate(OFNS_DESC = fct_reorder2(OFNS_DESC, ARREST_BORO == "Total", -count)) %>% 
+  mutate(OFNS_DESC = fct_explicit_na(OFNS_DESC, "NA")) %>% 
+  mutate(OFNS_DESC = fct_relevel(OFNS_DESC, "NA"))
+
+top30$ARREST_BORO <- factor(top30$ARREST_BORO, levels = c("Total", "Brooklyn", "Manhattan", "Bronx", "Queens", "Staten Island"))
+ggplot(top30, aes(x = count, y = OFNS_DESC, color = ARREST_BORO)) +
+  geom_point(size = 3) +
+  theme_grey(16) +
+  ggtitle("Top 30 Offense Types") +
+  theme(plot.title = element_text(face = "bold")) +
+  ylab("") +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), panel.grid.major.y = element_line(colour = "grey60", linetype = "dashed"))
+```
 
 ## Air Quality Dataset
 
