@@ -1,2 +1,14 @@
 # Conclusion
 
+In this projects,  we mainly consider about three types of datasets: COVID-19 datasets, which contain records of cases, deaths and vaccination populations; Crime datasets, which contain records of shooting, arrest and hate crime data in NYC; Air Quality dataset, which contains air quality data.
+
+After analyzing these datasets, we gain some insights from the above three different perspectives. We will answer the questions we give in th begining and offer some advice on choosing the ideal neighborhood for people to live.
+
+For the first question, we analyze the dataset and get the conclusion that Manhattan has the highest vaccination rate for most age groups and ethnicities. The reason behind this might be that Manhattan have more regulations for vaccinations and have higher population density. While in low population density area like Staten Island, people may not be so eager to get vaccinated. Besides that, we also observe that teenagers and adults have the highest vaccination rate and Asian people seem to be more willingly to be vaccinated.
+
+For the second question,
+
+ 
+For the third question. We may conclude that for PM 2.5 and NO2, Manhattan and Bronx have the highest mean value , while Staten Island has a better air quality. PM 2.5 and NO2 in air quality is periodical, which is usually lower in the begining of a year. We can also conclude that for all boroughs, the air quality is getting better and better from 2016 to 2018 as the values are descending. For O3, Queens becomes the most polluted borough with most outliers. While Mahanttan and Bronx who have most NO2 and PM 2.5 have least O3 in air. 
+
+In conclusion, if you are going to find a place to live in New York City, Manhattan is a good place with high vaccination rate.

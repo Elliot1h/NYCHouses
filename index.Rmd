@@ -19,7 +19,7 @@ We would like to carry out analysis from both geographic and time series perspec
 ## Potential Questions
 
 
-- Due to COVID-19, which neighborhoods or a certain group of people are severely attacked by viruses? Why are they different from other neighborhoods or people? What are the vaccination rates in different areas?
+- To cope with COVID-19 pandemic, which area have the highest vaccination rates ? And what are the rates for different age groups and ethnicities.
 
 - What are the crime rates and most common crimes in different neighborhoods?
 
