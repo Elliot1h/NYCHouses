@@ -7,6 +7,31 @@ library(tidyverse)
 
 # Data transformation
 
+Initially the two datasets were imported and combined into a single data frame. The single dataframe now consisted of shooting data provided by the NYPD over the years 2006 to 2019. As we are evaluating on neighborhoods it is necessary to find out what neighborhood each event corresponds to. Unfortunately, unlike the other two datasets the zip code was not provided and the only information given was the longitude and latitude data. Using python packages we were able to retrieve the zip code information using longitude and latitude data. After the zip codes were added in a new column ‘Zip’ the file was exported as NYPD_ZIP.csv. The below is the python code we used.
+
+
+As a result, we have decided to utilize a reduced version of this dataset that only includes data starting in 2011.
+
+
+For a lot of our analysis we will want a combined dataset, so we can append the historical data to the 2021 data like so:
+
+In this dataset, many columns are pre-processed by the authors, so our work is to choose the variables we need and change the names and orders of factor levels.
+
+We cleaned the dataset in the following steps:
+
+- Select AppStore, PriceSensitive, WhyDownload, Currency & demographic columns (Gender, Age, Nationality, Education, Occupation, etc.)
+
+- Mutate character variables to factors
+
+- Rename the levels with readable information
+
+- Reorder the levels for future visualization
+
+In this section, we are going to load our dataset and clean it. There are five main steps to transform the dataset: 1) download the csv files from the NYCD OpenData and extract data only from a specific time interval, 2) continue to select a proportion of variables to avoid unnecessary data, 3) detect the missing values in the dataset and replace them with "NA", 4) add or remove some variables that may be helpful to conduct our analyses, and 5) change the orders of factor levels or some character's names so that they can be easily understood.
+
+We combine sub-datasets into on dataset as a whole. For example, after we add the information of years in different sub datasets, we will combine these data sets into one dataset that contains information of all of these years.
+For some NAs that still exists, we fill them by the group averages within combined datasets.
+We do calculations based on the existed variables to get other variables that we want add them as new columns.
 
 
 ## COVID-19 Dataset
@@ -22,6 +47,59 @@ coverage = data.frame(read_csv('data/coverage-by-boro-demo.csv')) %>% select('BO
 ```
 
 ## Crime Dataset
+
+### Shooting Incident Data
+
+After downloading the csv file from the website, we combine the NYPD Shooting Incident Data (Historic) and the NYPD Shooting Incident Data (Year to Date). Since we are more confused on people's living condition in New York city during the pandemic, we only select data from 2020-01-01 to 2021-09-30 and export it a csv file. We consider `BORO`, `LOCATION_DESC`, `OCCUR_DATE`, `OCCUR_TIME`, `STATISTICAL_MURDER_FLAG`, `VIC_AGE_GROUP`, `VIC_RACE`, and `VIC_SEX` as important variables and remove the remaining variables. We also change each name for the `BORO` column to make it more readable.
+
+```{r,echo = FALSE}
+shooting_df <- read_csv('data/NYPD_Shooting_2020_2021.csv', na = c("", "UNKNOWN"), show_col_types = FALSE) %>%
+  select(-c('PRECINCT', 'PERP_AGE_GROUP', 'PERP_RACE', 'PERP_SEX')) %>% 
+  mutate(BORO = case_when(BORO == 'BRONX' ~ 'Bronx',
+                   BORO == 'STATEN ISLAND' ~ 'Staten Island',
+                   BORO == 'BROOKLYN' ~ 'Brooklyn',
+                   BORO == 'MANHATTAN' ~ 'Manhattan',
+                   BORO == 'QUEENS' ~ 'Queens'))
+summary(shooting_df)
+head(shooting_df)
+```
+
+### Arrest Data
+
+We follow the similar steps as shown before by combining the NYPD Arrest Data Data (Historic) and the NYPD Arrest Data Data (Year to Date). We only select data from 2020-01-01 to 2021-09-30 to keep it consistent with the shooting incident dataset and export it a csv file. We consider `ARREST_BORO`, `ARREST_DATE`, `LAW_CAT_CD`, `OFNS_DESC`, and `PD_DESC` as important variables. We also add three new variables `ArrestYear`, `ARREST_MONTH`, and `ARREST_WEEKDAY`.
+
+```{r,echo = FALSE}
+arrest_df <- read_csv('data/NYPD_Arrest_2020_2021.csv', na = c("", "UNKNOWN"), show_col_types = FALSE) %>%
+  select('ARREST_BORO', 'ARREST_DATE', 'LAW_CAT_CD', 'OFNS_DESC', 'PD_DESC')
+arrest_df$ARREST_DATE <- as.Date(arrest_df$ARREST_DATE, format = "%m/%d/%y")
+arrest_df <- arrest_df %>% 
+  mutate(ArrestYear = factor(as.numeric(format(ARREST_DATE,'%Y'))),
+         ARREST_MONTH = as.numeric(format(ARREST_DATE,'%m')),
+         ARREST_WEEKDAY = weekdays(ARREST_DATE),
+         ARREST_WEEKDAY = case_when(ARREST_WEEKDAY == 'Monday' ~ 'Mon',
+                                    ARREST_WEEKDAY == 'Tuesday' ~ 'Tue',
+                                    ARREST_WEEKDAY == 'Wednesday' ~ 'Wed',
+                                    ARREST_WEEKDAY == 'Thursday' ~ 'Thr',
+                                    ARREST_WEEKDAY == 'Friday' ~ 'Fri',
+                                    ARREST_WEEKDAY == 'Saturday' ~ 'Sat',
+                                    ARREST_WEEKDAY == 'Sunday' ~ 'Sun'),
+         ARREST_BORO = case_when(ARREST_BORO == 'B' ~ 'Bronx',
+                                 ARREST_BORO == 'S' ~ 'Staten Island',
+                                 ARREST_BORO == 'K' ~ 'Brooklyn',
+                                 ARREST_BORO == 'M' ~ 'Manhattan',
+                                 ARREST_BORO == 'Q' ~ 'Queens'),
+         LAW_CAT_CD = case_when(LAW_CAT_CD == 'F' ~ 'Felony',
+                                 LAW_CAT_CD == 'M' ~ 'Misdemeanor',
+                                 LAW_CAT_CD == 'V' ~ 'Violation',
+                                 LAW_CAT_CD == 'I' ~ 'Infraction'))
+summary(arrest_df)
+head(arrest_df)
+```
+
+### Hate Crimes Data
+
+Since the dataset provided is already clean, we only need to extracted the necessary columns that are mentioned in the previous chapter. 
+
 
 ## Air Quality Dataset
 

@@ -97,7 +97,12 @@
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#covid-19-dataset-1"><i class="fa fa-check"></i><b>3.1</b> COVID-19 Dataset</a></li>
-<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#crime-dataset-1"><i class="fa fa-check"></i><b>3.2</b> Crime Dataset</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#crime-dataset-1"><i class="fa fa-check"></i><b>3.2</b> Crime Dataset</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="data-transformation.html"><a href="data-transformation.html#shooting-incident-data"><i class="fa fa-check"></i><b>3.2.1</b> Shooting Incident Data</a></li>
+<li class="chapter" data-level="3.2.2" data-path="data-transformation.html"><a href="data-transformation.html#arrest-data"><i class="fa fa-check"></i><b>3.2.2</b> Arrest Data</a></li>
+<li class="chapter" data-level="3.2.3" data-path="data-transformation.html"><a href="data-transformation.html#hate-crimes-data"><i class="fa fa-check"></i><b>3.2.3</b> Hate Crimes Data</a></li>
+</ul></li>
 <li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#air-quality-dataset-1"><i class="fa fa-check"></i><b>3.3</b> Air Quality Dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
@@ -105,9 +110,9 @@
 <li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#our-analysis"><i class="fa fa-check"></i><b>4.1</b> Our Analysis</a></li>
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#crime-dataset-2"><i class="fa fa-check"></i><b>4.2</b> Crime Dataset</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="missing-values.html"><a href="missing-values.html#shooting-incident-data"><i class="fa fa-check"></i><b>4.2.1</b> Shooting Incident Data</a></li>
-<li class="chapter" data-level="4.2.2" data-path="missing-values.html"><a href="missing-values.html#arrest-data"><i class="fa fa-check"></i><b>4.2.2</b> Arrest Data</a></li>
-<li class="chapter" data-level="4.2.3" data-path="missing-values.html"><a href="missing-values.html#hate-crimes-data"><i class="fa fa-check"></i><b>4.2.3</b> Hate Crimes Data</a></li>
+<li class="chapter" data-level="4.2.1" data-path="missing-values.html"><a href="missing-values.html#shooting-incident-data-1"><i class="fa fa-check"></i><b>4.2.1</b> Shooting Incident Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="missing-values.html"><a href="missing-values.html#arrest-data-1"><i class="fa fa-check"></i><b>4.2.2</b> Arrest Data</a></li>
+<li class="chapter" data-level="4.2.3" data-path="missing-values.html"><a href="missing-values.html#hate-crimes-data-1"><i class="fa fa-check"></i><b>4.2.3</b> Hate Crimes Data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
@@ -144,6 +149,21 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<p>Initially the two datasets were imported and combined into a single data frame. The single dataframe now consisted of shooting data provided by the NYPD over the years 2006 to 2019. As we are evaluating on neighborhoods it is necessary to find out what neighborhood each event corresponds to. Unfortunately, unlike the other two datasets the zip code was not provided and the only information given was the longitude and latitude data. Using python packages we were able to retrieve the zip code information using longitude and latitude data. After the zip codes were added in a new column ‘Zip’ the file was exported as NYPD_ZIP.csv. The below is the python code we used.</p>
+<p>As a result, we have decided to utilize a reduced version of this dataset that only includes data starting in 2011.</p>
+<p>For a lot of our analysis we will want a combined dataset, so we can append the historical data to the 2021 data like so:</p>
+<p>In this dataset, many columns are pre-processed by the authors, so our work is to choose the variables we need and change the names and orders of factor levels.</p>
+<p>We cleaned the dataset in the following steps:</p>
+<ul>
+<li><p>Select AppStore, PriceSensitive, WhyDownload, Currency &amp; demographic columns (Gender, Age, Nationality, Education, Occupation, etc.)</p></li>
+<li><p>Mutate character variables to factors</p></li>
+<li><p>Rename the levels with readable information</p></li>
+<li><p>Reorder the levels for future visualization</p></li>
+</ul>
+<p>In this section, we are going to load our dataset and clean it. There are five main steps to transform the dataset: 1) download the csv files from the NYCD OpenData and extract data only from a specific time interval, 2) continue to select a proportion of variables to avoid unnecessary data, 3) detect the missing values in the dataset and replace them with “NA”, 4) add or remove some variables that may be helpful to conduct our analyses, and 5) change the orders of factor levels or some character’s names so that they can be easily understood.</p>
+<p>We combine sub-datasets into on dataset as a whole. For example, after we add the information of years in different sub datasets, we will combine these data sets into one dataset that contains information of all of these years.
+For some NAs that still exists, we fill them by the group averages within combined datasets.
+We do calculations based on the existed variables to get other variables that we want add them as new columns.</p>
 <div id="covid-19-dataset-1" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> COVID-19 Dataset</h2>
 <p>This file contains information on the number and estimated percentage of NYC residents fully vaccinated and residents who received at least one dose of COVID-19 vaccine by Modified ZCTA (MODZCTA). Percentages of NYC residents vaccinated is calculated against the estimated total population of the specified MODZCTA.</p>
@@ -152,12 +172,81 @@
 </div>
 <div id="crime-dataset-1" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Crime Dataset</h2>
+<div id="shooting-incident-data" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Shooting Incident Data</h3>
+<p>After downloading the csv file from the website, we combine the NYPD Shooting Incident Data (Historic) and the NYPD Shooting Incident Data (Year to Date). Since we are more confused on people’s living condition in New York city during the pandemic, we only select data from 2020-01-01 to 2021-09-30 and export it a csv file. We consider <code>BORO</code>, <code>LOCATION_DESC</code>, <code>OCCUR_DATE</code>, <code>OCCUR_TIME</code>, <code>STATISTICAL_MURDER_FLAG</code>, <code>VIC_AGE_GROUP</code>, <code>VIC_RACE</code>, and <code>VIC_SEX</code> as important variables and remove the remaining variables. We also change each name for the <code>BORO</code> column to make it more readable.</p>
+<pre><code>##      BORO           LOCATION_DESC       OCCUR_DATE       
+##  Length:3473        Length:3473        Length:3473       
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##   OCCUR_TIME       STATISTICAL_MURDER_FLAG VIC_AGE_GROUP     
+##  Length:3473       Mode :logical           Length:3473       
+##  Class1:hms        FALSE:2799              Class :character  
+##  Class2:difftime   TRUE :674               Mode  :character  
+##  Mode  :numeric                                              
+##    VIC_RACE           VIC_SEX         
+##  Length:3473        Length:3473       
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+## </code></pre>
+<pre><code>## # A tibble: 6 × 8
+##   BORO      LOCATION_DESC       OCCUR_DATE OCCUR_TIME STATISTICAL_MURDER…
+##   &lt;chr&gt;     &lt;chr&gt;               &lt;chr&gt;      &lt;time&gt;     &lt;lgl&gt;              
+## 1 Brooklyn  &lt;NA&gt;                1/1/20     02:35      FALSE              
+## 2 Bronx     MULTI DWELL - PUBL… 1/1/20     10:29      TRUE               
+## 3 Bronx     MULTI DWELL - PUBL… 1/1/20     10:29      TRUE               
+## 4 Manhattan &lt;NA&gt;                1/1/20     21:47      TRUE               
+## 5 Brooklyn  &lt;NA&gt;                1/2/20     04:10      FALSE              
+## 6 Manhattan MULTI DWELL - PUBL… 1/2/20     16:25      FALSE              
+## # … with 3 more variables: VIC_AGE_GROUP &lt;chr&gt;, VIC_RACE &lt;chr&gt;,
+## #   VIC_SEX &lt;chr&gt;</code></pre>
+</div>
+<div id="arrest-data" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Arrest Data</h3>
+<p>We follow the similar steps as shown before by combining the NYPD Arrest Data Data (Historic) and the NYPD Arrest Data Data (Year to Date). We only select data from 2020-01-01 to 2021-09-30 to keep it consistent with the shooting incident dataset and export it a csv file. We consider <code>ARREST_BORO</code>, <code>ARREST_DATE</code>, <code>LAW_CAT_CD</code>, <code>OFNS_DESC</code>, and <code>PD_DESC</code> as important variables. We also add three new variables <code>ArrestYear</code>, <code>ARREST_MONTH</code>, and <code>ARREST_WEEKDAY</code>.</p>
+<pre><code>##  ARREST_BORO         ARREST_DATE          LAW_CAT_CD       
+##  Length:255712      Min.   :2020-01-01   Length:255712     
+##  Class :character   1st Qu.:2020-05-26   Class :character  
+##  Mode  :character   Median :2020-11-30   Mode  :character  
+##                     Mean   :2020-11-18                     
+##                     3rd Qu.:2021-05-06                     
+##                     Max.   :2021-09-30                     
+##   OFNS_DESC           PD_DESC          ArrestYear     ARREST_MONTH   
+##  Length:255712      Length:255712      2020:140413   Min.   : 1.000  
+##  Class :character   Class :character   2021:115299   1st Qu.: 3.000  
+##  Mode  :character   Mode  :character                 Median : 5.000  
+##                                                      Mean   : 5.714  
+##                                                      3rd Qu.: 8.000  
+##                                                      Max.   :12.000  
+##  ARREST_WEEKDAY    
+##  Length:255712     
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+## </code></pre>
+<pre><code>## # A tibble: 6 × 8
+##   ARREST_BORO ARREST_DATE LAW_CAT_CD  OFNS_DESC     PD_DESC    ArrestYear
+##   &lt;chr&gt;       &lt;date&gt;      &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;      &lt;fct&gt;     
+## 1 Brooklyn    2020-01-01  Felony      ROBBERY       ROBBERY,O… 2020      
+## 2 Bronx       2020-01-01  Misdemeanor DANGEROUS WE… WEAPONS, … 2020      
+## 3 Bronx       2020-01-01  Misdemeanor ASSAULT 3 &amp; … OBSTR BRE… 2020      
+## 4 Brooklyn    2020-01-01  Misdemeanor POSSESSION O… STOLEN PR… 2020      
+## 5 Brooklyn    2020-01-01  Felony      MISCELLANEOU… PUBLIC AD… 2020      
+## 6 Queens      2020-01-01  Misdemeanor INTOXICATED … INTOXICAT… 2020      
+## # … with 2 more variables: ARREST_MONTH &lt;dbl&gt;, ARREST_WEEKDAY &lt;chr&gt;</code></pre>
+</div>
+<div id="hate-crimes-data" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Hate Crimes Data</h3>
+<p>Since the dataset provided is already clean, we only need to extracted the necessary columns that are mentioned in the previous chapter.</p>
+</div>
 </div>
 <div id="air-quality-dataset-1" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Air Quality Dataset</h2>
 <p>We first extracted the necessary columns that are mentioned in the previous chapter. Then we notice that in the <code>Measure</code> column, there are only two values, we only use Mean as out measure since there are not enough data for the other one.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-8">Table 3.1: </span>Measure Counts</caption>
+<caption><span id="tab:unnamed-chunk-10">Table 3.1: </span>Measure Counts</caption>
 <thead>
 <tr class="header">
 <th align="left">Var1</th>
@@ -177,7 +266,7 @@
 </table>
 <p>In the <code>Measure</code> column, there are only three values. After counting the numbers of different values, we decide not to remove any values.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-9">Table 3.2: </span>Measure Counts</caption>
+<caption><span id="tab:unnamed-chunk-11">Table 3.2: </span>Measure Counts</caption>
 <thead>
 <tr class="header">
 <th align="left">Var1</th>
@@ -200,7 +289,7 @@
 </tbody>
 </table>
 <p>After removing some observations, we notice that in this data, there are hundreds of values in <code>Neighborhood name</code> columns, we need to use the <code>Geo Join ID</code> column to classify them into different boroughs. The <code>Geo Join ID</code> variable is the identifier of the neighborhood geographic area, which is a three or six digits number. The first digit represents different boroughs.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>From the histogram above we can see that after classification, the dataset seems to be pretty balanced.</p>
 
 </div>
