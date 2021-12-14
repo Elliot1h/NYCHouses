@@ -287,6 +287,7 @@ ggplot(arrest_type, aes(x = LAW_CAT_CD, y = count)) +
 
 ```{r, results = 'hide', echo = FALSE, fig.height = 8, fig.width = 12}
 arr <- arrest_df %>% filter(LAW_CAT_CD == "Misdemeanor" | LAW_CAT_CD == "Felony")
+arr$LAW_CAT_CD <- factor(arr$LAW_CAT_CD, levels = c("Misdemeanor", "Felony"))
 arr$ARREST_WEEKDAY <- factor(arr$ARREST_WEEKDAY, levels = c('Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun'))
 arr5 <- arr %>% select(ARREST_WEEKDAY, LAW_CAT_CD, ARREST_BORO) %>% group_by(ARREST_WEEKDAY, LAW_CAT_CD, ARREST_BORO) %>% summarize(Freq = n())
 mosaic(LAW_CAT_CD ~ ARREST_BORO + ARREST_WEEKDAY, direction = c("v", "v", "h"), arr5, labeling = labeling_border(set_varnames = c(ARREST_WEEKDAY = "Day", LAW_CAT_CD = "Level of Offense", ARREST_BORO = "Borough")))
