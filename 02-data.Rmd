@@ -14,7 +14,6 @@ These data show the percent of NYC residents who received at least one dose of C
 
 Vaccination is one of the most effective ways to prevent COVID infection. With higher vaccination rate, community immunity will be more likely to be achieved. Thus if you want to find a place in new york, the vaccination rate can be taken into considerations. These indicators provide a perspective across time and NYC geographies to better characterize  health in NYC.
 
-
 Vaccinated Population data contains these following key variables: 
 
 ```{r, echo  = FALSE}
@@ -32,19 +31,31 @@ This dataset can be found on: https://github.com/nychealth/covid-vaccine-data/tr
 ## Crime Dataset
 
 ### Shooting Incident Data collected by NYPD.
-Such dataset can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8
+
+List of every shooting incident that occurred in NYC going back to 2006 through the end of the previous calendar year.
+
+This is a breakdown of every shooting incident that occurred in NYC going back to 2006 through the end of the previous calendar year. This data is manually extracted every quarter and reviewed by the Office of Management Analysis and Planning before being posted on the NYPD website. Each record represents a shooting incident in NYC and includes information about the event, the location and time of occurrence. In addition, information related to suspect and victim demographics is also included. This data can be used by the public to explore the nature of shooting/criminal activity.
+
+The datasets we need can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8
 https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Year-To-Date-/5ucz-vwe8
 
 Key variables: `PERP_AGE_GROUP`, `PERP_SEX`, `VIC_AGE_GROUP`, `VIC_SEX`, and `STATISTICAL_MURDER_FLAG` across `BORO` at `OCCUR_TIME`.
 
 ### Arrest Data collected by NYPD.
-Such dataset can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Arrests-Data-Historic-/8h9b-rp9u
+
+The dataset consists of list of every arrest in NYC going back to 2006 through the end of the previous calendar year. This is a breakdown of every arrest effected in NYC by the NYPD going back to 2006 through the end of the previous calendar year. This data is manually extracted every quarter and reviewed by the Office of Management Analysis and Planning before being posted on the NYPD website. Each record represents an arrest effected in NYC by the NYPD and includes information about the type of crime, the location and time of enforcement.
+In addition, information related to suspect demographics is also included.
+
+This dataset can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Arrests-Data-Historic-/8h9b-rp9u
 https://data.cityofnewyork.us/Public-Safety/NYPD-Arrest-Data-Year-to-Date-/uip8-fykc
 
 Key variables: `LAW_CODE`, `AGE_GROUP`, `PERP_SEX`, and `PERP_RACE` across `ARREST_BORO` at `Record Create Date`.
 
 ### Hate Crimes Data collected by NYPD.
-Such dataset can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Hate-Crimes/bqiq-cu78
+
+The dataset containing confirmed hate crime incidents in NYC.
+
+This dataset can be found on: https://data.cityofnewyork.us/Public-Safety/NYPD-Hate-Crimes/bqiq-cu78
 
 Key variables: `Law Code Category Description`, `Bias Motive Description`, and `Offense Description` across `County` at `ARREST_DATE`.
 
