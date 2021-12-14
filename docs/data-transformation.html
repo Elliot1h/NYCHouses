@@ -163,67 +163,59 @@
 <div id="shooting-incident-data" class="section level3" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Shooting Incident Data</h3>
 <p>After downloading the csv file from the website, we combine the NYPD Shooting Incident Data (Historic) and the NYPD Shooting Incident Data (Year to Date). Since we are more confused on people’s living condition in New York city during the pandemic, we only select data from 2020-01-01 to 2021-09-30 and export it a csv file. We consider <code>BORO</code>, <code>LOCATION_DESC</code>, <code>OCCUR_DATE</code>, <code>OCCUR_TIME</code>, <code>STATISTICAL_MURDER_FLAG</code>, <code>VIC_AGE_GROUP</code>, <code>VIC_RACE</code>, and <code>VIC_SEX</code> as important variables and remove the remaining variables. We also change each name for the <code>BORO</code> column to make it more readable.</p>
-<pre><code>##      BORO           LOCATION_DESC       OCCUR_DATE       
-##  Length:3473        Length:3473        Length:3473       
-##  Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character  
-##                                                          
-##   OCCUR_TIME       STATISTICAL_MURDER_FLAG VIC_AGE_GROUP     
-##  Length:3473       Mode :logical           Length:3473       
-##  Class1:hms        FALSE:2799              Class :character  
-##  Class2:difftime   TRUE :674               Mode  :character  
-##  Mode  :numeric                                              
-##    VIC_RACE           VIC_SEX         
-##  Length:3473        Length:3473       
-##  Class :character   Class :character  
-##  Mode  :character   Mode  :character  
+<pre><code>##      BORO           LOCATION_DESC       OCCUR_DATE         OCCUR_TIME      
+##  Length:3473        Length:3473        Length:3473        Length:3473      
+##  Class :character   Class :character   Class :character   Class1:hms       
+##  Mode  :character   Mode  :character   Mode  :character   Class2:difftime  
+##                                                           Mode  :numeric   
+##  STATISTICAL_MURDER_FLAG VIC_AGE_GROUP        VIC_RACE        
+##  Mode :logical           Length:3473        Length:3473       
+##  FALSE:2799              Class :character   Class :character  
+##  TRUE :674               Mode  :character   Mode  :character  
+##                                                               
+##    VIC_SEX         
+##  Length:3473       
+##  Class :character  
+##  Mode  :character  
 ## </code></pre>
 <pre><code>## # A tibble: 6 × 8
-##   BORO      LOCATION_DESC       OCCUR_DATE OCCUR_TIME STATISTICAL_MURDER…
-##   &lt;chr&gt;     &lt;chr&gt;               &lt;chr&gt;      &lt;time&gt;     &lt;lgl&gt;              
-## 1 Brooklyn  &lt;NA&gt;                1/1/20     02:35      FALSE              
-## 2 Bronx     MULTI DWELL - PUBL… 1/1/20     10:29      TRUE               
-## 3 Bronx     MULTI DWELL - PUBL… 1/1/20     10:29      TRUE               
-## 4 Manhattan &lt;NA&gt;                1/1/20     21:47      TRUE               
-## 5 Brooklyn  &lt;NA&gt;                1/2/20     04:10      FALSE              
-## 6 Manhattan MULTI DWELL - PUBL… 1/2/20     16:25      FALSE              
-## # … with 3 more variables: VIC_AGE_GROUP &lt;chr&gt;, VIC_RACE &lt;chr&gt;,
-## #   VIC_SEX &lt;chr&gt;</code></pre>
+##   BORO      LOCATION_DESC   OCCUR_DATE OCCUR_TIME STATISTICAL_MUR… VIC_AGE_GROUP
+##   &lt;chr&gt;     &lt;chr&gt;           &lt;chr&gt;      &lt;time&gt;     &lt;lgl&gt;            &lt;chr&gt;        
+## 1 Brooklyn  &lt;NA&gt;            1/1/20     02:35      FALSE            18-24        
+## 2 Bronx     MULTI DWELL - … 1/1/20     10:29      TRUE             25-44        
+## 3 Bronx     MULTI DWELL - … 1/1/20     10:29      TRUE             25-44        
+## 4 Manhattan &lt;NA&gt;            1/1/20     21:47      TRUE             25-44        
+## 5 Brooklyn  &lt;NA&gt;            1/2/20     04:10      FALSE            25-44        
+## 6 Manhattan MULTI DWELL - … 1/2/20     16:25      FALSE            25-44        
+## # … with 2 more variables: VIC_RACE &lt;chr&gt;, VIC_SEX &lt;chr&gt;</code></pre>
 </div>
 <div id="arrest-data" class="section level3" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Arrest Data</h3>
 <p>We follow the similar steps as shown before by combining the NYPD Arrest Data Data (Historic) and the NYPD Arrest Data Data (Year to Date). We only select data from 2020-01-01 to 2021-09-30 to keep it consistent with the shooting incident dataset and export it a csv file. We consider <code>ARREST_BORO</code>, <code>ARREST_DATE</code>, <code>LAW_CAT_CD</code>, <code>OFNS_DESC</code>, and <code>PD_DESC</code> as important variables. We also add three new variables <code>ArrestYear</code>, <code>ARREST_MONTH</code>, and <code>ARREST_WEEKDAY</code>.</p>
-<pre><code>##  ARREST_BORO         ARREST_DATE          LAW_CAT_CD       
-##  Length:255712      Min.   :2020-01-01   Length:255712     
-##  Class :character   1st Qu.:2020-05-26   Class :character  
-##  Mode  :character   Median :2020-11-30   Mode  :character  
-##                     Mean   :2020-11-18                     
-##                     3rd Qu.:2021-05-06                     
-##                     Max.   :2021-09-30                     
-##   OFNS_DESC           PD_DESC          ArrestYear     ARREST_MONTH   
-##  Length:255712      Length:255712      2020:140413   Min.   : 1.000  
-##  Class :character   Class :character   2021:115299   1st Qu.: 3.000  
-##  Mode  :character   Mode  :character                 Median : 5.000  
-##                                                      Mean   : 5.714  
-##                                                      3rd Qu.: 8.000  
-##                                                      Max.   :12.000  
-##  ARREST_WEEKDAY    
-##  Length:255712     
-##  Class :character  
-##  Mode  :character  
-##                    
-##                    
-## </code></pre>
+<pre><code>##  ARREST_BORO         ARREST_DATE          LAW_CAT_CD         OFNS_DESC        
+##  Length:255712      Min.   :2020-01-01   Length:255712      Length:255712     
+##  Class :character   1st Qu.:2020-05-26   Class :character   Class :character  
+##  Mode  :character   Median :2020-11-30   Mode  :character   Mode  :character  
+##                     Mean   :2020-11-18                                        
+##                     3rd Qu.:2021-05-06                                        
+##                     Max.   :2021-09-30                                        
+##    PD_DESC          ArrestYear     ARREST_MONTH    ARREST_WEEKDAY    
+##  Length:255712      2020:140413   Min.   : 1.000   Length:255712     
+##  Class :character   2021:115299   1st Qu.: 3.000   Class :character  
+##  Mode  :character                 Median : 5.000   Mode  :character  
+##                                   Mean   : 5.714                     
+##                                   3rd Qu.: 8.000                     
+##                                   Max.   :12.000</code></pre>
 <pre><code>## # A tibble: 6 × 8
-##   ARREST_BORO ARREST_DATE LAW_CAT_CD  OFNS_DESC     PD_DESC    ArrestYear
-##   &lt;chr&gt;       &lt;date&gt;      &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;      &lt;fct&gt;     
-## 1 Brooklyn    2020-01-01  Felony      ROBBERY       ROBBERY,O… 2020      
-## 2 Bronx       2020-01-01  Misdemeanor DANGEROUS WE… WEAPONS, … 2020      
-## 3 Bronx       2020-01-01  Misdemeanor ASSAULT 3 &amp; … OBSTR BRE… 2020      
-## 4 Brooklyn    2020-01-01  Misdemeanor POSSESSION O… STOLEN PR… 2020      
-## 5 Brooklyn    2020-01-01  Felony      MISCELLANEOU… PUBLIC AD… 2020      
-## 6 Queens      2020-01-01  Misdemeanor INTOXICATED … INTOXICAT… 2020      
-## # … with 2 more variables: ARREST_MONTH &lt;dbl&gt;, ARREST_WEEKDAY &lt;chr&gt;</code></pre>
+##   ARREST_BORO ARREST_DATE LAW_CAT_CD  OFNS_DESC  PD_DESC ArrestYear ARREST_MONTH
+##   &lt;chr&gt;       &lt;date&gt;      &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;   &lt;fct&gt;             &lt;dbl&gt;
+## 1 Brooklyn    2020-01-01  Felony      ROBBERY    ROBBER… 2020                  1
+## 2 Bronx       2020-01-01  Misdemeanor DANGEROUS… WEAPON… 2020                  1
+## 3 Bronx       2020-01-01  Misdemeanor ASSAULT 3… OBSTR … 2020                  1
+## 4 Brooklyn    2020-01-01  Misdemeanor POSSESSIO… STOLEN… 2020                  1
+## 5 Brooklyn    2020-01-01  Felony      MISCELLAN… PUBLIC… 2020                  1
+## 6 Queens      2020-01-01  Misdemeanor INTOXICAT… INTOXI… 2020                  1
+## # … with 1 more variable: ARREST_WEEKDAY &lt;chr&gt;</code></pre>
 </div>
 </div>
 <div id="air-quality-dataset-1" class="section level2" number="3.3">
