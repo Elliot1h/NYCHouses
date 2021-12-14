@@ -101,6 +101,39 @@ ggplot(trend1, aes(new_date, count, color = BORO)) +
 
 When looking at the location of where shooting incidents happened, we create a multidot Cleveland dot plot to display the 30 most frequent places and show the counts for Brooklyn, Bronx, Manhattan, Queens, and Staten Island boroughs for each of these 30 places. Surprisingly, for each borough, a great proportion of location descriptions about the shooting incidents are missing. For example, the police can not determine over 700 shooting incidents in Brooklyn and over 250 cases' locations in Manhattan are unknown or missing. From the plot, we can also see that multi-dwell public houses and apartment buildings are the places where the shooting took place most often. Such findings can somewhat support the evidence that gun violence surged during the pandemic as we just discussed.
 
+```{r, results = 'hide', echo = FALSE, fig.height = 10, fig.width = 12}
+top30names <- shooting_df %>%
+  group_by(LOCATION_DESC) %>%
+  summarize(n = n()) %>%
+  slice_max(order_by = n, n = 30) %>%
+  pull(LOCATION_DESC)
+
+top30byboros <- shooting_df %>%
+  filter(LOCATION_DESC %in% top30names) %>%
+  group_by(LOCATION_DESC, BORO) %>%
+  summarize(count = n()) %>%
+  ungroup()
+
+top30total <- top30byboros %>%
+  group_by(LOCATION_DESC) %>%
+  summarize(count = sum(count)) %>%
+  mutate(BORO = "Total")
+
+top30 <- bind_rows(top30byboros, top30total) %>% 
+  mutate(LOCATION_DESC = fct_reorder2(LOCATION_DESC, BORO == "Total", -count)) %>% 
+  mutate(LOCATION_DESC = fct_explicit_na(LOCATION_DESC, "NA")) %>% 
+  mutate(LOCATION_DESC = fct_relevel(LOCATION_DESC, "NA"))
+
+top30$BORO <- factor(top30$BORO, levels = c("Total", "Brooklyn", "Bronx", "Manhattan", "Queens", "Staten Island"))
+ggplot(top30, aes(x = count, y = LOCATION_DESC, color = BORO)) +
+  geom_point(size = 3) +
+  theme_grey(16) +
+  ggtitle("Top 30 Location of the Shooting Incident") +
+  theme(plot.title = element_text(face = "bold")) +
+  ylab("") +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), panel.grid.major.y = element_line(colour = "grey60", linetype = "dashed"))
+```
+
 Next we will try to explore the time that shooting incidents took place most frequently. Therefore, we use a square heatmap to help us identify some interesting pattern based on the time of the shooting incidents. We first need to aggregate data by day and hour. For example, an incident occurred on 2020-04-08 16:35:00. Then, such data point has a x coordinate equal to 16 and a y coordinate equal to 8. After accumulating all shooting incidents, we can distinguish which hour in a day or which day in a month appears to be the most dangerous period of time to commute in the city.
 
 ```{r, results = 'hide', echo = FALSE, fig.height = 10, fig.width = 12}
