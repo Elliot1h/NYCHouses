@@ -13,11 +13,10 @@ Therefore, the main purpose of our final project is to discover whether there ex
 
 Our goal is to help people make decisions on finding a healthy and safe place to live by analyzing data collected by multiple NYC departments. We will try to gain some insights from three different perspectives: COVID-19 cases and vaccination rate, crime rate, and air quality. After analyzing all these three perspectives, hopefully we may offer some advice on choosing the ideal neighborhood for people to live.
 
-<<<<<<< HEAD
+
 We would like to carry out analysis from both geographic and time series perspectives to help people decide where to live in NYC and answer the following questions:
-=======
+
 ## Potential Questions
->>>>>>> 4421d7f29343801b2c0bea0ef3e605e7d38e31e0
 
 
 - Due to COVID-19, which neighborhoods or a certain group of people are severely attacked by viruses? Why are they different from other neighborhoods or people? What are the vaccination rates in different areas?

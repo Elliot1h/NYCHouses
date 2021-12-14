@@ -3,6 +3,7 @@ tab:unnamed-chunk-4
 tab:unnamed-chunk-8
 tab:unnamed-chunk-9
 introduction
+potential-questions
 data-sources
 covid-19-dataset
 vaccinated-population-data.
