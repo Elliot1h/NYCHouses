@@ -10,6 +10,54 @@ library(tidyverse)
 
 ## COVID-19 Dataset
 
+We will draw two headmaps to visualize what are the vaccination rate in different ages, ethnicities in different boroughs and citywide.
+
+```{R,fig.height = 6, fig.width = 10,echo = FALSE}
+df_cov = data.frame(read_csv('data/coverage-by-boro-demo.csv')) %>% select('BOROUGH','AGE_GROUP','RACE_ETHNICITY','PERC_FULLY','PERC_1PLUS')
+df_cov_d = df_cov %>% pivot_wider(id_cols = c(AGE_GROUP,RACE_ETHNICITY),names_from = BOROUGH, values_from = PERC_FULLY)
+
+df_cov$PERC_FULLY[df_cov$PERC_FULLY>= 99] =99
+df_cov$PERC_FULLY = round(df_cov$PERC_FULLY)
+df_cov$PERC_1PLUS[df_cov$PERC_1PLUS>= 99] =99
+df_cov$PERC_1PLUS = round(df_cov$PERC_1PLUS)
+df_cov$BOROUGH = fct_relevel(as.factor(df_cov$BOROUGH),'Citywide','Manhattan','Bronx','Brooklyn','Queens','Staten Island')
+df_cov$AGE_GROUP = fct_relevel(as.factor(df_cov$AGE_GROUP),"'65+","'45-64","'18-44","'13-17","'5-12", "All ages")
+                      
+
+ggplot(data  = df_cov, aes(x = BOROUGH, y = AGE_GROUP, fill = PERC_FULLY, label = PERC_FULLY)) +
+  geom_tile(color = 'black') + facet_wrap(~RACE_ETHNICITY) + 
+  scale_fill_gradient(name ="Vaccination Percentage",low = "#DEEBF7", high = "#08519C") +
+  geom_text(size = 4)+
+  xlab('Boroughs')+
+  ylab('Age Groups')+
+  ggtitle('Percentage of People Fully Vaccinated')
+  
+```
+
+From the above plot we can observe percentage of people fully vaccinated in different ages, ethnicities in different boroughs and citywide. 
+
+For different age groups, teenagers and adults have the highest vaccination rate since most of them are required to do so. While kids have lower rates than any other group because some vaccines are not suitable for kids.
+
+For ethnicity, Asian people seem to be more willingly to be vaccinated. While others are basically the same.
+
+For boroughs, Manhattan has the highest vaccination rate for most age groups and ethnicities. The reason behind this might be that Manhattan have more regulations for vaccinations and have higher population density. While in low population density area like Staten Island, people may not be so eager to get vaccinated.
+
+```{R,fig.height = 6, fig.width = 10,echo = FALSE}
+ggplot(data  = df_cov, aes(x = BOROUGH, y = AGE_GROUP, fill = PERC_1PLUS, label = PERC_1PLUS)) +
+  geom_tile(color = 'black') + facet_wrap(~RACE_ETHNICITY) + 
+  scale_fill_gradient(name ="Vaccination Percentage",low = "#DEEBF7", high = "#08519C") +
+  geom_text(size = 4)+
+  xlab('Boroughs')+
+  ylab('Age Groups')+
+  ggtitle('Percentage of People Vaccinated')
+```
+From the above plot we can observe percentage of people vaccinated in different ages, ethnicities in different boroughs and citywide. 
+
+The results do not change a lot from the last one. Teenagers and adults still have the highest vaccination rate and Manhattan has the highest vaccination rate for most age groups and ethnicities.
+
+One interesting fact is that the rate is much higher than rate for fully vaccinated people. An explanation may be that NYC only offer 100$ bonus for the first dose and many people do not think it is necessary to get a second dose.
+
+
 ## Crime Dataset
 
 ## Air Quality Dataset

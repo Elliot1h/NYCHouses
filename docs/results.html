@@ -78,8 +78,7 @@
 <ul>
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#covid-19-dataset"><i class="fa fa-check"></i><b>2.1</b> COVID-19 Dataset</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#daily-counts-of-cases-hospitalizations-and-deaths."><i class="fa fa-check"></i><b>2.1.1</b> Daily Counts of Cases, Hospitalizations, and Deaths.</a></li>
-<li class="chapter" data-level="2.1.2" data-path="data-sources.html"><a href="data-sources.html#vaccinated-population-data."><i class="fa fa-check"></i><b>2.1.2</b> Vaccinated Population Data.</a></li>
+<li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#vaccinated-population-data."><i class="fa fa-check"></i><b>2.1.1</b> Vaccinated Population Data.</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#crime-dataset"><i class="fa fa-check"></i><b>2.2</b> Crime Dataset</a>
 <ul>
@@ -144,6 +143,16 @@
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
 <div id="covid-19-dataset-2" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> COVID-19 Dataset</h2>
+<p>We will draw two headmaps to visualize what are the vaccination rate in different ages, ethnicities in different boroughs and citywide.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="960" /></p>
+<p>From the above plot we can observe percentage of people fully vaccinated in different ages, ethnicities in different boroughs and citywide.</p>
+<p>For different age groups, teenagers and adults have the highest vaccination rate since most of them are required to do so. While kids have lower rates than any other group because some vaccines are not suitable for kids.</p>
+<p>For ethnicity, Asian people seem to be more willingly to be vaccinated. While others are basically the same.</p>
+<p>For boroughs, Manhattan has the highest vaccination rate for most age groups and ethnicities. The reason behind this might be that Manhattan have more regulations for vaccinations and have higher population density. While in low population density area like Staten Island, people may not be so eager to get vaccinated.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="960" />
+From the above plot we can observe percentage of people vaccinated in different ages, ethnicities in different boroughs and citywide.</p>
+<p>The results do not change a lot from the last one. Teenagers and adults still have the highest vaccination rate and Manhattan has the highest vaccination rate for most age groups and ethnicities.</p>
+<p>One interesting fact is that the rate is much higher than rate for fully vaccinated people. An explanation may be that NYC only offer 100$ bonus for the first dose and many people do not think it is necessary to get a second dose.</p>
 </div>
 <div id="crime-dataset-3" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Crime Dataset</h2>
@@ -152,13 +161,13 @@
 <h2><span class="header-section-number">5.3</span> Air Quality Dataset</h2>
 <p>There are three different measures of air quality: Fine Particulate Matter (PM2.5), Nitrogen Dioxide (NO2) and Ozone (O3). In this part, we draw three boxplots and three lineplots to visualize how these three kinds of data distribute in different boroughs and how they change over the time.</p>
 <p>First, we choose <code>PM2.5</code> to draw the plot, which is the most common indicator for air quality.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
 <p>From the plot we can observe that Manhattan and Bronx have the highest mean PM 2.5 value , while Staten Island has a better air quality. Manhattan’s PM 2.5 value also varies the most. Besides, Bronx has the most outliers which indicates that there are some places are heavily polluted. The reason behind this might be that Manhattan and Bronx have higher population and less land, which could result in more toxic waste in air.</p>
 <p>From the lineplot we can also observe that PM 2.5 in air quality is periodical, which is usually lower in the begining of a year. We can also conclude that for all boroughs, the air quality is getting better and better from 2016 to 2018 as the values are descending.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-27-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-27-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-25-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-25-2.png" width="672" /></p>
 <p>In the second graph, we use a different measure NO2, and the results are basically the same with the last one depite that Bronx is the leading polluted borough in this measure.</p>
 <p>From the lineplot we can also observe that NO2 in air quality is also periodical. One difference from the above one is that the NO2 is usually lower in the middle of a year and peaks in the end of the year. We can also conclude that for all boroughs, the air quality is getting better and better from 2016 to 2018 as the values are descending.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-28-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
 <p>Ozone (O3) has become the most dangerous toxic air particles in recent years, which could do serious damage to human lungs. In the third graph, we visualize how O3 data distributed in different boroughs. The results are very different from the last two. Queens becomes the most polluted borough with most outliers. While Mahanttan and Bronx who have most NO2 and PM 2.5 have least O3 in air. We could not find a reason for this observation. However, what we can be sure is that we should use different measures to indicate how air is polluted since different particles may not have the same distributions in boroughs.</p>
 <p>The lineplot does not show much information since there are not enough data. We can not be sure if O3 in air quality is also periodical. However, we can observe that for all boroughs, the air quality is first getting better and then getting worse from 2016 to 2018 when considering O3 values. And we should be more careful about O3.</p>
 

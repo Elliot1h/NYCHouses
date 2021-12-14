@@ -78,8 +78,7 @@
 <ul>
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#covid-19-dataset"><i class="fa fa-check"></i><b>2.1</b> COVID-19 Dataset</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#daily-counts-of-cases-hospitalizations-and-deaths."><i class="fa fa-check"></i><b>2.1.1</b> Daily Counts of Cases, Hospitalizations, and Deaths.</a></li>
-<li class="chapter" data-level="2.1.2" data-path="data-sources.html"><a href="data-sources.html#vaccinated-population-data."><i class="fa fa-check"></i><b>2.1.2</b> Vaccinated Population Data.</a></li>
+<li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#vaccinated-population-data."><i class="fa fa-check"></i><b>2.1.1</b> Vaccinated Population Data.</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#crime-dataset"><i class="fa fa-check"></i><b>2.2</b> Crime Dataset</a>
 <ul>
@@ -144,6 +143,9 @@
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
 <div id="covid-19-dataset-1" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> COVID-19 Dataset</h2>
+<p>This file contains information on the number and estimated percentage of NYC residents fully vaccinated and residents who received at least one dose of COVID-19 vaccine by Modified ZCTA (MODZCTA). Percentages of NYC residents vaccinated is calculated against the estimated total population of the specified MODZCTA.</p>
+<p>Note that the number of people vaccinated may exceed the estimated population and lead to more than 100% vaccination coverage, especially for smaller demographic categories and geographies.</p>
+<p>Since the dataset provided is already clean, we only need to extracted the necessary columns that are mentioned in the previous chapter.</p>
 </div>
 <div id="crime-dataset-1" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Crime Dataset</h2>
@@ -152,7 +154,7 @@
 <h2><span class="header-section-number">3.3</span> Air Quality Dataset</h2>
 <p>We first extracted the necessary columns that are mentioned in the previous chapter. Then we notice that in the <code>Measure</code> column, there are only two values, we only use Mean as out measure since there are not enough data for the other one.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-12">Table 3.1: </span>Measure Counts</caption>
+<caption><span id="tab:unnamed-chunk-8">Table 3.1: </span>Measure Counts</caption>
 <thead>
 <tr class="header">
 <th align="left">Var1</th>
@@ -172,7 +174,7 @@
 </table>
 <p>In the <code>Measure</code> column, there are only three values. After counting the numbers of different values, we decide not to remove any values.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-13">Table 3.2: </span>Measure Counts</caption>
+<caption><span id="tab:unnamed-chunk-9">Table 3.2: </span>Measure Counts</caption>
 <thead>
 <tr class="header">
 <th align="left">Var1</th>
@@ -195,7 +197,7 @@
 </tbody>
 </table>
 <p>After removing some observations, we notice that in this data, there are hundreds of values in <code>Neighborhood name</code> columns, we need to use the <code>Geo Join ID</code> column to classify them into different boroughs. The <code>Geo Join ID</code> variable is the identifier of the neighborhood geographic area, which is a three or six digits number. The first digit represents different boroughs.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>From the histogram above we can see that after classification, the dataset seems to be pretty balanced.</p>
 
 </div>

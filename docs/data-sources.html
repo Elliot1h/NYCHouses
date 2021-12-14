@@ -78,8 +78,7 @@
 <ul>
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#covid-19-dataset"><i class="fa fa-check"></i><b>2.1</b> COVID-19 Dataset</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#daily-counts-of-cases-hospitalizations-and-deaths."><i class="fa fa-check"></i><b>2.1.1</b> Daily Counts of Cases, Hospitalizations, and Deaths.</a></li>
-<li class="chapter" data-level="2.1.2" data-path="data-sources.html"><a href="data-sources.html#vaccinated-population-data."><i class="fa fa-check"></i><b>2.1.2</b> Vaccinated Population Data.</a></li>
+<li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#vaccinated-population-data."><i class="fa fa-check"></i><b>2.1.1</b> Vaccinated Population Data.</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#crime-dataset"><i class="fa fa-check"></i><b>2.2</b> Crime Dataset</a>
 <ul>
@@ -147,16 +146,43 @@
 <p>We will try to gain some insights from the above three different perspectives. We want to estimate the overall living condition across neighborhoods in New York City. After analyzing all these three perspectives, hopefully we may offer some advice on choosing the ideal neighborhood for people to live.</p>
 <div id="covid-19-dataset" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> COVID-19 Dataset</h2>
-<div id="daily-counts-of-cases-hospitalizations-and-deaths." class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Daily Counts of Cases, Hospitalizations, and Deaths.</h3>
-<p>Such dataset can be found on: <a href="https://data.cityofnewyork.us/Health/COVID-19-Daily-Counts-of-Cases-Hospitalizations-an/rc75-m7u3" class="uri">https://data.cityofnewyork.us/Health/COVID-19-Daily-Counts-of-Cases-Hospitalizations-an/rc75-m7u3</a>
-<a href="https://github.com/nychealth/coronavirus-data" class="uri">https://github.com/nychealth/coronavirus-data</a></p>
-<p>Key variables: <code>CASE_COUNT</code>, <code>HOSPITALIZED_COUNT</code>, and <code>DEATH_COUNT</code> among various demographics aspects across various boroughs.</p>
-</div>
-<div id="vaccinated-population-data." class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Vaccinated Population Data.</h3>
-<p>Such dataset can be found on: <a href="https://github.com/nychealth/covid-vaccine-data/tree/main/people#coverage-summary-allagescsv" class="uri">https://github.com/nychealth/covid-vaccine-data/tree/main/people#coverage-summary-allagescsv</a></p>
-<p>Key variables: <code>RACE_ETHNICITY</code>, <code>AGE_GROUP</code>, <code>COUNT_PARTIALLY_CUMULATIVE</code>, <code>COUNT_FULLY_CUMULATIVE</code>, and <code>COUNT_1PLUS_CUMULATIVE</code> across <code>BOROUGH</code>.</p>
+<div id="vaccinated-population-data." class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Vaccinated Population Data.</h3>
+<p>These data show the percent of NYC residents who received at least one dose of COVID-19 vaccine and the percent who are fully vaccinated, by borough of residence and demographic group. The percentages reflect the number of people vaccinated within that specific demographic group. Vaccination rates are reported by standard U.S Census age categories. The population estimate available for youth eligible for vaccination is among ages 5 to 17.</p>
+<p>Vaccination is one of the most effective ways to prevent COVID infection. With higher vaccination rate, community immunity will be more likely to be achieved. Thus if you want to find a place in new york, the vaccination rate can be taken into considerations. These indicators provide a perspective across time and NYC geographies to better characterize health in NYC.</p>
+<p>Vaccinated Population data contains these following key variables:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-3">Table 2.1: </span>Key Variables in Air Quality Dataset</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable.name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BOROUGH</td>
+<td align="left">Borough of residence</td>
+</tr>
+<tr class="even">
+<td align="left">AGE_GROUP</td>
+<td align="left">Race/ethnicity group</td>
+</tr>
+<tr class="odd">
+<td align="left">RACE_ETHNICITY</td>
+<td align="left">Age group in years</td>
+</tr>
+<tr class="even">
+<td align="left">PERC_FULLY</td>
+<td align="left">Estimated percentage of people fully vaccinated</td>
+</tr>
+<tr class="odd">
+<td align="left">PERC_1PLUS</td>
+<td align="left">Estimated percentage of people vaccinated</td>
+</tr>
+</tbody>
+</table>
+<p>This dataset can be found on: <a href="https://github.com/nychealth/covid-vaccine-data/tree/main/people#coverage-summary-allagescsv" class="uri">https://github.com/nychealth/covid-vaccine-data/tree/main/people#coverage-summary-allagescsv</a></p>
 </div>
 </div>
 <div id="crime-dataset" class="section level2" number="2.2">
@@ -188,7 +214,7 @@
 <p>Air quality is an important indicator of living wellness. Analyzing air quality data will help us to find a health place for people to live.</p>
 <p>Air quality data contains these following key variables:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-9">Table 2.1: </span>Key Variables in Air Quality Dataset</caption>
+<caption><span id="tab:unnamed-chunk-4">Table 2.2: </span>Key Variables in Air Quality Dataset</caption>
 <thead>
 <tr class="header">
 <th align="left">Variable.name</th>

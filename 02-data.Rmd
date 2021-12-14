@@ -8,16 +8,26 @@ We will try to gain some insights from the above three different perspectives. W
 
 ## COVID-19 Dataset
 
-### Daily Counts of Cases, Hospitalizations, and Deaths.
-Such dataset can be found on: https://data.cityofnewyork.us/Health/COVID-19-Daily-Counts-of-Cases-Hospitalizations-an/rc75-m7u3
-https://github.com/nychealth/coronavirus-data
-
-Key variables: `CASE_COUNT`, `HOSPITALIZED_COUNT`, and `DEATH_COUNT` among various demographics aspects across various boroughs.
-
 ### Vaccinated Population Data.
-Such dataset can be found on: https://github.com/nychealth/covid-vaccine-data/tree/main/people#coverage-summary-allagescsv
 
-Key variables: `RACE_ETHNICITY`, `AGE_GROUP`, `COUNT_PARTIALLY_CUMULATIVE`, `COUNT_FULLY_CUMULATIVE`, and `COUNT_1PLUS_CUMULATIVE` across `BOROUGH`.
+These data show the percent of NYC residents who received at least one dose of COVID-19 vaccine and the percent who are fully vaccinated, by borough of residence and demographic group. The percentages reflect the number of people vaccinated within that specific demographic group. Vaccination rates are reported by standard U.S Census age categories. The population estimate available for youth eligible for vaccination is among ages 5 to 17.
+
+Vaccination is one of the most effective ways to prevent COVID infection. With higher vaccination rate, community immunity will be more likely to be achieved. Thus if you want to find a place in new york, the vaccination rate can be taken into considerations. These indicators provide a perspective across time and NYC geographies to better characterize  health in NYC.
+
+
+Vaccinated Population data contains these following key variables: 
+
+```{r, echo  = FALSE}
+Variable.name = c('BOROUGH','AGE_GROUP','RACE_ETHNICITY','PERC_FULLY','PERC_1PLUS')
+Description = c('Borough of residence', 'Race/ethnicity group','Age group in years','Estimated percentage of people fully vaccinated', 'Estimated percentage of people vaccinated')
+d = data.frame(Variable.name,Description)
+knitr::kable(d, caption = "Key Variables in Air Quality Dataset",
+             row.names = F,font_size = 10)
+```
+
+
+This dataset can be found on: https://github.com/nychealth/covid-vaccine-data/tree/main/people#coverage-summary-allagescsv
+
 
 ## Crime Dataset
 

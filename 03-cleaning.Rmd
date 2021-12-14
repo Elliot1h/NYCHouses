@@ -11,6 +11,16 @@ library(tidyverse)
 
 ## COVID-19 Dataset
 
+This file contains information on the number and estimated percentage of NYC residents fully vaccinated and residents who received at least one dose of COVID-19 vaccine by Modified ZCTA (MODZCTA). Percentages of NYC residents vaccinated is calculated against the estimated total population of the specified MODZCTA.
+
+Note that the number of people vaccinated may exceed the estimated population and lead to more than 100% vaccination coverage, especially for smaller demographic categories and geographies. 
+
+Since the dataset provided is already clean, we only need to extracted the necessary columns that are mentioned in the previous chapter. 
+
+```{R,echo = FALSE}
+coverage = data.frame(read_csv('data/coverage-by-boro-demo.csv')) %>% select('BOROUGH','AGE_GROUP','RACE_ETHNICITY','PERC_FULLY','PERC_1PLUS')
+```
+
 ## Crime Dataset
 
 ## Air Quality Dataset

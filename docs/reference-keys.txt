@@ -1,10 +1,10 @@
+tab:unnamed-chunk-3
+tab:unnamed-chunk-4
+tab:unnamed-chunk-8
 tab:unnamed-chunk-9
-tab:unnamed-chunk-12
-tab:unnamed-chunk-13
 introduction
 data-sources
 covid-19-dataset
-daily-counts-of-cases-hospitalizations-and-deaths.
 vaccinated-population-data.
 crime-dataset
 shooting-incident-data-collected-by-nypd.
